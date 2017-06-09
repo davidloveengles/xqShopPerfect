@@ -4,8 +4,20 @@
     {
       "package": "COpenSSL",
       "reason": null,
-      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-COpenSSL.git",
+      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-COpenSSL-Linux.git",
+      "version": "2.0.3"
+    },
+    {
+      "package": "cURL",
+      "reason": null,
+      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-libcurl.git",
       "version": "2.0.4"
+    },
+    {
+      "package": "LinuxBridge",
+      "reason": null,
+      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-LinuxBridge.git",
+      "version": "2.0.2"
     },
     {
       "package": "MySQL",
@@ -14,22 +26,28 @@
       "version": "2.1.2"
     },
     {
+      "package": "mysqlclient",
+      "reason": null,
+      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-mysqlclient-Linux.git",
+      "version": "2.0.1"
+    },
+    {
       "package": "MySQLStORM",
       "reason": null,
       "repositoryURL": "https://github.com/SwiftORM/MySQL-StORM",
       "version": "1.0.9"
     },
     {
-      "package": "PerfectCURL",
-      "reason": null,
-      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-CURL.git",
-      "version": "2.1.4"
-    },
-    {
       "package": "PerfectCrypto",
       "reason": null,
       "repositoryURL": "https://github.com/PerfectlySoft/Perfect-Crypto.git",
       "version": "1.0.8"
+    },
+    {
+      "package": "PerfectCURL",
+      "reason": null,
+      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-CURL.git",
+      "version": "2.1.4"
     },
     {
       "package": "PerfectHTTP",
@@ -102,18 +120,6 @@
       "reason": null,
       "repositoryURL": "https://github.com/iamjono/SwiftString.git",
       "version": "1.1.0"
-    },
-    {
-      "package": "cURL",
-      "reason": null,
-      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-libcurl.git",
-      "version": "2.0.4"
-    },
-    {
-      "package": "mysqlclient",
-      "reason": null,
-      "repositoryURL": "https://github.com/PerfectlySoft/Perfect-mysqlclient.git",
-      "version": "2.0.0"
     }
   ],
   "version": 1

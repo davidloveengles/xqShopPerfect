@@ -72,7 +72,7 @@ extension Handels {
                 if let openid = result["openid"] {
                     status = .SUCCESS
                     msg = "获取openid成功"
-                    data = "{\"openid\"=\"\(openid)\"}"
+                    data = openid
                 }else {
                     msg = "获取openid失败"
                 }

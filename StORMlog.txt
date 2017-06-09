@@ -1,0 +1,8 @@
+[INFO] [3f1e8fc0-b8cc-4760-a3f5-d9158ec5fe33] [2017-06-08 21:14:05 GMT+08:00] Running setup: t_kind_sub
+[INFO] [e0e08071-abd2-482d-ad71-3b845e16f960] [2017-06-08 21:14:05 GMT+08:00] Running setup: t_food
+[INFO] [50b68154-3e56-4630-8f4b-64a78fabde1c] [2017-06-08 21:14:05 GMT+08:00] Running setup: t_kind
+[INFO] [7c84c467-eff5-4b24-9512-63d8a84cf845] [2017-06-08 21:14:05 GMT+08:00] Running setup: t_order
+[INFO] [4fbb4320-a6d2-41d8-bb00-6d2cd29ff125] [2017-06-08 22:35:25 GMT+08:00] Running setup: t_kind_sub
+[INFO] [8f01f77a-d136-4bb1-9702-cacc50cb63f9] [2017-06-08 22:35:25 GMT+08:00] Running setup: t_food
+[INFO] [fe8c4135-1f25-40bf-ba6a-3adb1f381fc0] [2017-06-08 22:35:25 GMT+08:00] Running setup: t_kind
+[INFO] [4e67be65-d665-47d7-8530-b98585f61b99] [2017-06-08 22:35:25 GMT+08:00] Running setup: t_order
