@@ -69,6 +69,22 @@ class OrderTable: MySQLStORM {
     
 }
 
+enum payWay: Int {
+    case huodaofk = 0
+    case paysuccess = 1
+    case paycancel = 2
+    
+    var description: String {
+        switch self {
+        case .huodaofk:
+            return "货到付款"
+        case .paysuccess:
+            return "支付成功"
+        case .paycancel:
+            return "订单已取消"
+        }
+    }
+}
 /// 模型
 class OrderModel: JSONConvertibleObject {
     
@@ -80,7 +96,7 @@ class OrderModel: JSONConvertibleObject {
     var userinfo        : String = ""
     var addressinfo     : String = ""
     var createTime		: String = ""
-    var payWay          : Int = 0
+    var payWay          : String = ""
     var status          : Int = 0
     
     
@@ -94,7 +110,18 @@ class OrderModel: JSONConvertibleObject {
         userinfo = table.userinfo
         addressinfo = table.addressinfo
         createTime = table.createTime
-        payWay = table.payWay
+        payWay = {
+            switch table.payWay {
+            case 0:
+                return "货到付款"
+            case 1:
+                return "支付成功"
+            case 2:
+                return "订单已取消"
+            default:
+                return ""
+            }
+        }()
         status = table.status
     }
     
@@ -109,7 +136,7 @@ class OrderModel: JSONConvertibleObject {
         self.userinfo = getJSONValue(named: "userinfo", from: values, defaultValue: "")
         self.addressinfo = getJSONValue(named: "addressinfo", from: values, defaultValue: "")
         self.createTime = getJSONValue(named: "createTime", from: values, defaultValue: "")
-        self.payWay = getJSONValue(named: "payWay", from: values, defaultValue: 0)
+        self.payWay = getJSONValue(named: "payWay", from: values, defaultValue: "")
         self.status = getJSONValue(named: "status", from: values, defaultValue: 0)
     }
     override func getJSONValues() -> [String : Any] {

@@ -166,6 +166,7 @@ extension Handels {
             let paramsDic = try? params?.jsonDecode() as? [String:Any]
             if  let openid = paramsDic??["openid"] as? String,
                 let total_fee = paramsDic??["total_fee"] as? Int,
+                let payWay = paramsDic??["payWay"] as? Int,
                 let orderList = try? (paramsDic??["orderList"] as? [String:Any]).jsonEncodedString(),
                 let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
                 let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString() {
@@ -177,6 +178,7 @@ extension Handels {
                 order.addressinfo = addressinfo
                 order.out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
                 order.total_fee = total_fee
+                order.payWay = payWay
                 
                 if let _ = try? OrderTableOptor.shared.insertOrder(order: order) {
                     status = .SUCCESS
