@@ -164,9 +164,10 @@ extension Handels {
             
             let params = request.postParams.first?.0
             let paramsDic = try? params?.jsonDecode() as? [String:Any]
-            if  let openid = paramsDic??["openid"] as? String,
+        	print(params)   
+	 if  let openid = paramsDic??["openid"] as? String,
                 let total_fee = paramsDic??["total_fee"] as? Int,
-                let payWay = paramsDic??["payWay"] as? Int,
+                let payWay = (paramsDic??["payWay"] as? String)?.toInt(),
                 let orderList = try? (paramsDic??["orderList"] as? [String:Any]).jsonEncodedString(),
                 let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
                 let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString() {

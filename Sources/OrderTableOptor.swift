@@ -76,7 +76,7 @@ enum payWay: Int {
     
     var description: String {
         switch self {
-        case .huodaofk:
+ 	case .huodaofk:
             return "货到付款"
         case .paysuccess:
             return "支付成功"
@@ -113,11 +113,11 @@ class OrderModel: JSONConvertibleObject {
         payWay = {
             switch table.payWay {
             case 0:
-                return "货到付款"
+                return "订单已取消"
             case 1:
                 return "支付成功"
             case 2:
-                return "订单已取消"
+                return "货到付款"
             default:
                 return ""
             }
