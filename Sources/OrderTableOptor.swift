@@ -20,6 +20,7 @@ class OrderTable: MySQLStORM {
     var body            : String = ""               //订单数据
     var total_fee       : Int = 0                   //总价格单位（分）
     var userinfo        : String = ""
+    var addressinfo     : String = ""               //包含姓名电话地址
     var createTime		: String = moment().format("yyyy-MM-dd HH:mm:ss")
     var payWay          : Int = 0                   //1:微信支付2:货到付款
     var status          : Int = 0                   //0:处理中1:成功2:取消
@@ -31,27 +32,28 @@ class OrderTable: MySQLStORM {
         if this.data["id"] is Int32 {
             id = Int(this.data["id"] as? Int32 ?? 0)
         }else{
-            id				= this.data["id"] as? Int           ?? 0
+            id				= this.data["id"] as? Int               ?? 0
         }
         if this.data["total_fee"] is Int32 {
             total_fee = Int(this.data["total_fee"] as? Int32 ?? 0)
         }else{
-            total_fee		= this.data["total_fee"] as? Int     ?? 0
+            total_fee		= this.data["total_fee"] as? Int        ?? 0
         }
         if this.data["payWay"] is Int32 {
             payWay = Int(this.data["payWay"] as? Int32 ?? 0)
         }else{
-            payWay          = this.data["payWay"] as? Int		 ?? 0
+            payWay          = this.data["payWay"] as? Int           ?? 0
         }
         if this.data["total_fee"] is Int32 {
             status = Int(this.data["status"] as? Int32 ?? 0)
         }else{
-            status          = this.data["status"] as? Int		 ?? 0
+            status          = this.data["status"] as? Int           ?? 0
         }
-        openid              = this.data["openid"] as? String	 ?? ""
-        out_trade_no        = this.data["out_trade_no"] as? String       ?? ""
-        body                = this.data["body"] as? String       ?? ""
-        userinfo            = this.data["userinfo"] as? String   ?? ""
+        openid              = this.data["openid"] as? String        ?? ""
+        out_trade_no        = this.data["out_trade_no"] as? String  ?? ""
+        body                = this.data["body"] as? String          ?? ""
+        userinfo            = this.data["userinfo"] as? String      ?? ""
+        addressinfo         = this.data["addressinfo"] as? String   ?? ""
         createTime          = this.data["createTime"] as? String ?? ""
     }
     
@@ -76,6 +78,7 @@ class OrderModel: JSONConvertibleObject {
     var body            : String = ""
     var total_fee       : Int = 0
     var userinfo        : String = ""
+    var addressinfo     : String = ""
     var createTime		: String = ""
     var payWay          : Int = 0
     var status          : Int = 0
@@ -89,6 +92,7 @@ class OrderModel: JSONConvertibleObject {
         body = table.body
         total_fee = table.total_fee
         userinfo = table.userinfo
+        addressinfo = table.addressinfo
         createTime = table.createTime
         payWay = table.payWay
         status = table.status
@@ -103,6 +107,7 @@ class OrderModel: JSONConvertibleObject {
         self.body = getJSONValue(named: "body", from: values, defaultValue: "")
         self.total_fee = getJSONValue(named: "total_fee", from: values, defaultValue: 0)
         self.userinfo = getJSONValue(named: "userinfo", from: values, defaultValue: "")
+        self.addressinfo = getJSONValue(named: "addressinfo", from: values, defaultValue: "")
         self.createTime = getJSONValue(named: "createTime", from: values, defaultValue: "")
         self.payWay = getJSONValue(named: "payWay", from: values, defaultValue: 0)
         self.status = getJSONValue(named: "status", from: values, defaultValue: 0)
@@ -116,6 +121,7 @@ class OrderModel: JSONConvertibleObject {
             "body":body,
             "total_fee":total_fee,
             "userinfo":userinfo,
+            "addressinfo":addressinfo,
             "createTime":createTime,
             "payWay":payWay,
             "status":status
