@@ -68,6 +68,7 @@ extension Handels {
 //                071QCuvB1xOpyg0ptDuB1S4kvB1QCuv1
 //                {"session_key":"Lk5bFx00A+gzMH9X8OdE8g==","expires_in":7200,"openid":"obdv80MZ8Eqb_q4zy6bizJz6-7Y0"}
                 
+                print("获取openid成功")
                 print(result)
                 if let openid = result["openid"] {
                     status = .SUCCESS
@@ -163,11 +164,17 @@ extension Handels {
             
             let params = request.postParams.first?.0
             let paramsDic = try? params?.jsonDecode() as? [String:Any]
-            if let openid = paramsDic??["openid"] as? String, let total_fee = paramsDic??["total_fee"] as? Int, let orderList = try? (paramsDic??["orderList"] as? [String:Any]).jsonEncodedString() {
+            if  let openid = paramsDic??["openid"] as? String,
+                let total_fee = paramsDic??["total_fee"] as? Int,
+                let orderList = try? (paramsDic??["orderList"] as? [String:Any]).jsonEncodedString(),
+                let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
+                let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString() {
                 
                 let order = OrderTable()
                 order.openid = openid
                 order.body = orderList
+                order.userinfo = userinfo
+                order.addressinfo = addressinfo
                 order.out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
                 order.total_fee = total_fee
                 
