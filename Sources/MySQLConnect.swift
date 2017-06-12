@@ -19,7 +19,11 @@ struct MySQLConnect {
         MySQLConnector.host		= "127.0.0.1"
         MySQLConnector.username	= "root"
         MySQLConnector.password	= "daixeibing:DAI2529926"
-        MySQLConnector.database	= "shop_db"
+        #if os(Linux)
+            MySQLConnector.database	= "shop_db"
+        #else
+            MySQLConnector.database	= "shopdatabase1"
+        #endif
         MySQLConnector.port		= 3306
         
         // 创建表

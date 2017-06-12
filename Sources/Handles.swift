@@ -242,7 +242,7 @@ extension Handels {
         }
         
         let appid = "wxcdbda1d1c5fee50f";
-        let secret = "8bbf7363955791c6aad2971744e4b32e";
+        let secret = "5a5204a375b200d19a778c28f2d52f1c";
         let url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=\(appid)&secret=\(secret)"
         let result = Utility.makeRequest(.get, url)
         
@@ -268,7 +268,7 @@ extension Handels {
         }
         
         if let body = (try? order.body.jsonDecode()) as? [String: Any],
-            let orders = body["goods_detail"] as? [[String: String]]{
+            let orders = body["goods_detail"] as? [[String: Any]]{
 //             {"goods_detail":[{"price":2050,"goods_id":1,"goods_name":"aa-11-1111","quantity":2}]}
             
             var keyword2 = ""
@@ -290,8 +290,8 @@ extension Handels {
                             "keyword1": ["value": order.out_trade_no, "color": "#173177"],
                             "keyword2": ["value": keyword2, "color": "#173177"],
                             "keyword3": ["value": "\(order.total_fee)", "color": "#173177"],
-                            "keyword3": ["value": "我是收货地址", "color": "#173177"],
-                            "keyword4": ["value": order.createTime, "color": "#173177"],
+                            "keyword4": ["value": "我是收货地址", "color": "#173177"],
+                            "keyword5": ["value": order.createTime, "color": "#173177"],
                             "keyword6": ["value": "感谢你的使用", "color": "#173177"]
                         ]
                                         ]
