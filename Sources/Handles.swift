@@ -276,8 +276,8 @@ extension Handels {
             for var order in orders {
                 if  let goods_name = order["goods_name"],
                     let quantity = order["quantity"],
-                    let price = order["price"] as? Float {
-                    keyword2.append("\(goods_name) x\(quantity) \(price / 100.0)元\n")
+                    let price = order["price"] as? Int{
+                    keyword2.append("\(goods_name) x\(quantity) \(Float(price) / 100.0)元\n")
                 }
             }
             
