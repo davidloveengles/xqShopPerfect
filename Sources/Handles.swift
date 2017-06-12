@@ -188,7 +188,7 @@ extension Handels {
                     msg = "操作成功"
     
                     // 给公众号发送订单消息
-                    _ = self.postTemplateMsg(order: order,form_id: form_id)
+                    _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: true)
                     
                 }else {
                     msg = "操作失败"
@@ -261,8 +261,7 @@ extension Handels {
     }
 
     /// 发送模板消息
-    // doc:https://mp.weixin.qq.com/wiki/?t=resource/res_main&id=mp1421140183&token=&lang=zh_CN
-    static func postTemplateMsg(order: OrderTable, form_id: String) -> [String:Any]? {
+    static func postTemplateMsg(order: OrderTable, form_id: String, isMaster: Bool) -> [String:Any]? {
         
         guard let access_token = self.getAccesstoken() else{
             return nil
@@ -272,31 +271,58 @@ extension Handels {
             let orders = body["goods_detail"] as? [[String: Any]]
             {
             
-            var keyword2 = ""
+            var orderInfo = ""
             for var order in orders {
                 if  let goods_name = order["goods_name"],
                     let quantity = order["quantity"],
                     let price = order["price"] as? Int{
-                    keyword2.append("\(goods_name) x\(quantity) \(Float(price) / 100.0)元\n")
+                    orderInfo.append("\(goods_name) x\(quantity) \(Float(price) / 100.0)元\n")
                 }
             }
             
             let addressinfo = try? order.addressinfo.jsonDecode() as? [String: Any]
-            let keyword4 = (addressinfo??["home"] as? String) ?? ""
+            let personHome = (addressinfo??["home"] as? String) ?? ""
+            let personPhone = (addressinfo??["phone"] as? String) ?? ""
+            let perdonName = (addressinfo??["name"] as? String) ?? ""
             
-            let body: [String : Any] = ["touser": order.openid,                 //接收者openid
-                "template_id": "hGDvSoPKzpxlRQZPBSdBvYyulTSz0pmRjNyb6bClF38",   //模板ID(订单提交成功通知)
-                "page": "shop",
-                "form_id": form_id,
-                "data": [
-                            "keyword1": ["value": order.out_trade_no, "color": "#173177"],
-                            "keyword2": ["value": keyword2, "color": "#173177"],
-                            "keyword3": ["value": "\(Float(order.total_fee) / 100)元", "color": "#173177"],
-                            "keyword4": ["value": keyword4, "color": "#173177"],
-                            "keyword5": ["value": order.createTime, "color": "#173177"],
-                            "keyword6": ["value": "感谢你的使用", "color": "#173177"]
-                        ]
-                                        ]
+                
+            let body: [String : Any]
+                
+            if isMaster {
+                // 发送给老板
+                body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
+                    "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
+                    "page": "shop",
+                    "form_id": form_id,
+                    "data": [
+                        "keyword1": ["value": order.out_trade_no, "color": "#173177"],
+                        "keyword2": ["value": orderInfo, "color": "#173177"],
+                        "keyword3": ["value": perdonName, "color": "#173177"],
+                        "keyword4": ["value": "货到付款", "color": "#173177"],
+                        "keyword5": ["value": order.createTime, "color": "#173177"],
+                        "keyword6": ["value": "\(Float(order.total_fee) / 100)元", "color": "#173177"],
+                        "keyword7": ["value": personPhone, "color": "#173177"],
+                        "keyword7": ["value": personHome, "color": "#173177"],
+                        "keyword6": ["value": "我是用户备注", "color": "#173177"]
+                    ]
+                ]
+            } else {
+                // 发送给用户
+               body  = ["touser": order.openid,                 //接收者openid
+                    "template_id": "hGDvSoPKzpxlRQZPBSdBvYyulTSz0pmRjNyb6bClF38",   //模板ID(订单提交成功通知)
+                    "page": "shop",
+                    "form_id": form_id,
+                    "data": [
+                        "keyword1": ["value": order.out_trade_no, "color": "#173177"],
+                        "keyword2": ["value": orderInfo, "color": "#173177"],
+                        "keyword3": ["value": "\(Float(order.total_fee) / 100)元", "color": "#173177"],
+                        "keyword4": ["value": personHome, "color": "#173177"],
+                        "keyword5": ["value": order.createTime, "color": "#173177"],
+                        "keyword6": ["value": "感谢你的使用", "color": "#173177"]
+                    ]
+                ]
+            }
+                
             let url =  "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=\(access_token)"
             let result = Utility.makeRequest(.post, url, body: (try? body.jsonEncodedString()) ?? "")
             

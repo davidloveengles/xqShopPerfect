@@ -181,7 +181,7 @@ class OrderTableOptor: DBBaseOperator {
         let food = OrderTable()
         
         do {
-            try food.select(whereclause: "openid = ?", params: [openid], orderby: ["id"])
+            try food.select(whereclause: "openid = ?", params: [openid], orderby: ["id desc"])
         }catch {
             return nil
         }
