@@ -191,6 +191,7 @@ extension Handels {
     
                     // 给公众号发送订单消息
                     _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: true)
+                    _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: false)
                     
                 }else {
                     msg = "操作失败"
@@ -295,7 +296,7 @@ extension Handels {
                 // 发送给老板
                 body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
                     "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
-                    "page": "shop",
+                    "page": "pages/shop/shop",
                     "form_id": form_id,
                     "data": [
                         "keyword1": ["value": order.out_trade_no, "color": "#173177"],
@@ -303,7 +304,7 @@ extension Handels {
                         "keyword3": ["value": perdonName, "color": "#173177"],
                         "keyword4": ["value": "货到付款", "color": "#173177"],
                         "keyword5": ["value": order.createTime, "color": "#173177"],
-                        "keyword6": ["value": "\(Float(order.total_fee) / 100)元"],
+                        "keyword6": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
                         "keyword7": ["value": personPhone, "color": "#173177"],
                         "keyword8": ["value": personHome, "color": "#173177"],
                         "keyword9": ["value": order.remark, "color": "#173177"]

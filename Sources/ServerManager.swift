@@ -62,12 +62,12 @@ class ServerManager {
         
         func configRoutes(routes: inout Routes) {
             
-            //        // 增加静态根路径
-            //        do {
-            //            routes.add(method: .get, uri: "/", handler: try PerfectHTTPServer.HTTPHandler.staticFiles(data: [:]))
-            //        }catch {
-            //            print(error)
-            //        }
+            // 增加静态根路径
+            do {
+                routes.add(method: .get, uri: "/**", handler: try PerfectHTTPServer.HTTPHandler.staticFiles(data: [:]))
+            }catch {
+                print(error)
+            }
             
             
             // 查找用户
