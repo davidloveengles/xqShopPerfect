@@ -62,13 +62,13 @@ extension Handels {
 
             if let code = request.param(name: "code") {
                 
-                let url = "https://api.weixin.qq.com/sns/jscode2session?appid=wxaae5d3bc30825d94&secret=8bbf7363955791c6aad2971744e4b32e&js_code=\(code)&grant_type=authorization_code"
+                let url = "https://api.weixin.qq.com/sns/jscode2session?appid=wxcdbda1d1c5fee50f&secret=5a5204a375b200d19a778c28f2d52f1c&js_code=\(code)&grant_type=authorization_code"
                 let result = Utility.makeRequest(.get, url)
                 
 //                071QCuvB1xOpyg0ptDuB1S4kvB1QCuv1
 //                {"session_key":"Lk5bFx00A+gzMH9X8OdE8g==","expires_in":7200,"openid":"obdv80MZ8Eqb_q4zy6bizJz6-7Y0"}
                 
-                print("获取openid成功")
+                print("获取code成功:\(code)")
                 print(result)
                 if let openid = result["openid"] {
                     status = .SUCCESS
@@ -99,7 +99,7 @@ extension Handels {
             
             if let _ = request.param(name: "openid"), let orderList = request.param(name: "orderList"), let total_fee = request.param(name: "total_fee") {
                 
-                let appid = "wxaae5d3bc30825d94"
+                let appid = "wxcdbda1d1c5fee50f"
                 let body = orderList
                 let mch_id = "商户号"
                 let nonce_str = Randoms.randomAlphaNumericString(length: 20)
