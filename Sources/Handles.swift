@@ -238,6 +238,7 @@ extension Handels {
     static func getAccesstoken() -> String? {
         
         if GlobalData.share.availableAccessToken() {
+            print("使用缓存的access_token")
             return GlobalData.share.accessTokenDic?["access_token"] as? String
         }
         
@@ -275,8 +276,8 @@ extension Handels {
             for var order in orders {
                 if  let goods_name = order["goods_name"],
                     let quantity = order["quantity"],
-                    let price = order["price"] {
-                    keyword2.append("\(goods_name) x\(quantity) \(price)\n")
+                    let price = order["price"] as? Int {
+                    keyword2.append("\(goods_name) x\(quantity) \(price / 100)元\n")
                 }
             }
             
@@ -289,7 +290,7 @@ extension Handels {
 //                            "first": ["value": "您好，您已成功下单"],
                             "keyword1": ["value": order.out_trade_no, "color": "#173177"],
                             "keyword2": ["value": keyword2, "color": "#173177"],
-                            "keyword3": ["value": "\(order.total_fee)", "color": "#173177"],
+                            "keyword3": ["value": "\(order.total_fee)元", "color": "#173177"],
                             "keyword4": ["value": "我是收货地址", "color": "#173177"],
                             "keyword5": ["value": order.createTime, "color": "#173177"],
                             "keyword6": ["value": "感谢你的使用", "color": "#173177"]
