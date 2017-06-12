@@ -278,7 +278,7 @@ extension Handels {
                 if  let goods_name = order["goods_name"],
                     let quantity = order["quantity"],
                     let price = order["price"] as? Int{
-                    orderInfo.append("\(goods_name) x\(quantity) \(Float(price) / 100.0)元\n")
+                    orderInfo.append("\(goods_name) x\(quantity) ¥\(Float(price) / 100.0)\n")
                 }
             }
             orderInfo = orderInfo.substring(0, length: orderInfo.length - 1)
