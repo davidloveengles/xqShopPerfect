@@ -166,12 +166,13 @@ extension Handels {
             let params = request.postParams.first?.0
             let paramsDic = try? params?.jsonDecode() as? [String:Any]
         	print(params)   
-	 if  let openid = paramsDic??["openid"] as? String,
+            if  let openid = paramsDic??["openid"] as? String,
                 let total_fee = paramsDic??["total_fee"] as? Int,
                 let payWay = (paramsDic??["payWay"] as? String)?.toInt(),
                 let orderList = try? (paramsDic??["orderList"] as? [String:Any]).jsonEncodedString(),
                 let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
                 let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString(),
+                let remark = paramsDic??["remark"] as? String,
                 let form_id = paramsDic??["form_id"] as? String{
                 
                 let order = OrderTable()
@@ -182,6 +183,7 @@ extension Handels {
                 order.out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
                 order.total_fee = total_fee
                 order.payWay = payWay
+                order.remark = remark
                 
                 if let _ = try? OrderTableOptor.shared.insertOrder(order: order) {
                     status = .SUCCESS
@@ -279,6 +281,7 @@ extension Handels {
                     orderInfo.append("\(goods_name) x\(quantity) \(Float(price) / 100.0)元\n")
                 }
             }
+            orderInfo = orderInfo.substring(0, length: orderInfo.length - 2)
             
             let addressinfo = try? order.addressinfo.jsonDecode() as? [String: Any]
             let personHome = (addressinfo??["home"] as? String) ?? ""
