@@ -281,7 +281,7 @@ extension Handels {
                     orderInfo.append("\(goods_name) x\(quantity) \(Float(price) / 100.0)元\n")
                 }
             }
-            orderInfo = orderInfo.substring(0, length: orderInfo.length - 2)
+            orderInfo = orderInfo.substring(0, length: orderInfo.length - 1)
             
             let addressinfo = try? order.addressinfo.jsonDecode() as? [String: Any]
             let personHome = (addressinfo??["home"] as? String) ?? ""
@@ -303,10 +303,10 @@ extension Handels {
                         "keyword3": ["value": perdonName, "color": "#173177"],
                         "keyword4": ["value": "货到付款", "color": "#173177"],
                         "keyword5": ["value": order.createTime, "color": "#173177"],
-                        "keyword6": ["value": "\(Float(order.total_fee) / 100)元", "color": "#173177"],
+                        "keyword6": ["value": "\(Float(order.total_fee) / 100)元"],
                         "keyword7": ["value": personPhone, "color": "#173177"],
                         "keyword8": ["value": personHome, "color": "#173177"],
-                        "keyword9": ["value": "我是用户备注", "color": "#173177"]
+                        "keyword9": ["value": order.remark, "color": "#173177"]
                     ]
                 ]
             } else {
