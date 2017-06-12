@@ -6,3 +6,55 @@
 [INFO] [8f01f77a-d136-4bb1-9702-cacc50cb63f9] [2017-06-08 22:35:25 GMT+08:00] Running setup: t_food
 [INFO] [fe8c4135-1f25-40bf-ba6a-3adb1f381fc0] [2017-06-08 22:35:25 GMT+08:00] Running setup: t_kind
 [INFO] [4e67be65-d665-47d7-8530-b98585f61b99] [2017-06-08 22:35:25 GMT+08:00] Running setup: t_order
+[INFO] [a94007e9-3950-48d7-9b8f-b83514695330] [2017-06-09 11:18:41 GMT+08:00] Running setup: t_kind_sub
+[INFO] [e6b33c18-7cc1-4c40-9417-c2acadcc1755] [2017-06-09 11:18:41 GMT+08:00] Running setup: t_food
+[INFO] [850d9fce-2dbe-48f2-ab47-5131ab92143a] [2017-06-09 11:18:41 GMT+08:00] Running setup: t_kind
+[INFO] [02866197-c0b4-4cb3-8ca9-1ac38b46a820] [2017-06-09 11:18:41 GMT+08:00] Running setup: t_order
+[ERROR] [11d1ca67-c6b1-4822-b9f9-adaf0169b946] [2017-06-09 11:19:03 GMT+08:00] Error msg: error("Unknown column \'addressinfo\' in \'field list\'")
+[INFO] [f3f8e6e3-fda2-4776-a522-2bbe002a51fc] [2017-06-09 11:20:49 GMT+08:00] Running setup: t_kind_sub
+[INFO] [e4b2e0b2-5db0-4cd6-a0fd-d6061a9c7474] [2017-06-09 11:20:49 GMT+08:00] Running setup: t_food
+[INFO] [63e6e749-3796-4cd5-862a-d856438485db] [2017-06-09 11:20:49 GMT+08:00] Running setup: t_kind
+[INFO] [a55edf75-3445-47d9-bc0e-825dad586c82] [2017-06-09 11:20:49 GMT+08:00] Running setup: t_order
+[INFO] [2c0fbb8d-d1a0-4774-a930-c04448ab0ab0] [2017-06-09 12:25:34 GMT+08:00] Running setup: t_kind_sub
+[INFO] [95b4e5d7-dae4-4b1d-96ac-1bd3a92785fe] [2017-06-09 12:25:34 GMT+08:00] Running setup: t_food
+[INFO] [e5919682-6867-4e8f-b856-99fa2b271ea3] [2017-06-09 12:25:34 GMT+08:00] Running setup: t_kind
+[INFO] [c02b2f82-38c8-4fde-99c7-df7654cb279c] [2017-06-09 12:25:34 GMT+08:00] Running setup: t_order
+[ERROR] [7558889b-4938-4130-b719-e286faf79b3b] [2017-06-09 12:26:06 GMT+08:00] Error msg: error("Table \'shop_db.t_order\' doesn\'t exist")
+[ERROR] [d1bc7c3b-edff-46ce-a037-ca146be1e136] [2017-06-09 12:26:20 GMT+08:00] Error msg: error("Table \'shop_db.t_order\' doesn\'t exist")
+[ERROR] [735fc714-8484-4e12-90ff-9ec780467086] [2017-06-09 12:26:24 GMT+08:00] Error msg: error("Table \'shop_db.t_order\' doesn\'t exist")
+[INFO] [5acfd83b-3b9a-46f3-9908-9cf1f2f98950] [2017-06-09 12:26:38 GMT+08:00] Running setup: t_kind_sub
+[INFO] [6b6cf4df-6489-4a69-b714-befdab39f278] [2017-06-09 12:26:38 GMT+08:00] Running setup: t_food
+[INFO] [e3be9c04-4961-4c46-a8ff-cc88c07ee9f2] [2017-06-09 12:26:38 GMT+08:00] Running setup: t_kind
+[INFO] [b7fab8eb-9611-4f6e-aaf2-70c7944dbf1f] [2017-06-09 12:26:38 GMT+08:00] Running setup: t_order
+[INFO] [ea90144c-3d6c-4e7e-979e-cb9fb9e1279a] [2017-06-09 12:30:03 GMT+08:00] Running setup: t_kind_sub
+[INFO] [6efb86b4-412d-41a5-b8e6-a03746156b12] [2017-06-09 12:30:03 GMT+08:00] Running setup: t_food
+[INFO] [786f4392-bbde-4460-b448-ee886347042a] [2017-06-09 12:30:03 GMT+08:00] Running setup: t_kind
+[INFO] [2253c7e4-db83-4c49-bd7c-f2cc4549caa9] [2017-06-09 12:30:03 GMT+08:00] Running setup: t_order
+[INFO] [ae0e28dc-1404-4bc4-8fcd-1a835ad1c138] [2017-06-09 12:34:34 GMT+08:00] Running setup: t_kind_sub
+[INFO] [1f71adc8-9e6d-40bd-a4f2-ed8dcfc9fa92] [2017-06-09 12:34:34 GMT+08:00] Running setup: t_food
+[INFO] [1f27ad8f-3cf5-4726-b23f-7e9a6b5d7050] [2017-06-09 12:34:34 GMT+08:00] Running setup: t_kind
+[INFO] [a1a77191-2e01-43bd-81c4-2a0b014092e3] [2017-06-09 12:34:34 GMT+08:00] Running setup: t_order
+[INFO] [ec1bda8e-6e52-42ea-b1a2-b3492fee95ce] [2017-06-09 12:36:59 GMT+08:00] Running setup: t_kind_sub
+[INFO] [6cdc0d26-44e9-4998-b08a-7530768c9703] [2017-06-09 12:36:59 GMT+08:00] Running setup: t_food
+[INFO] [340aa000-01e2-437d-8008-11cb820e62d7] [2017-06-09 12:36:59 GMT+08:00] Running setup: t_kind
+[INFO] [075d27f8-ca26-4e26-8704-6e90f33640a1] [2017-06-09 12:36:59 GMT+08:00] Running setup: t_order
+[INFO] [68a9747c-e27d-4d72-8780-a3ed11631857] [2017-06-09 12:46:36 GMT+08:00] Running setup: t_kind_sub
+[INFO] [9931479b-2447-4aa1-9c52-ac592795ddc4] [2017-06-09 12:46:36 GMT+08:00] Running setup: t_food
+[INFO] [06d1a990-060f-40dd-9f13-089f141c7279] [2017-06-09 12:46:36 GMT+08:00] Running setup: t_kind
+[INFO] [5a3f1234-eb22-4949-bab2-5dd9539ce123] [2017-06-09 12:46:36 GMT+08:00] Running setup: t_order
+[INFO] [2b76898a-815e-4c71-a4ab-a245dfbf2601] [2017-06-09 13:56:54 GMT+08:00] Running setup: t_kind_sub
+[INFO] [62e0f037-0f2c-4eee-b827-de874fb95153] [2017-06-09 13:56:54 GMT+08:00] Running setup: t_food
+[INFO] [20f318a2-60ce-4723-8a7c-6a5bc5afb00d] [2017-06-09 13:56:54 GMT+08:00] Running setup: t_kind
+[INFO] [1247104d-a890-45fa-a341-b56b0bff8689] [2017-06-09 13:56:54 GMT+08:00] Running setup: t_order
+[INFO] [464367de-fe0c-42a3-98f4-f86b3a466f1c] [2017-06-09 13:57:06 GMT+08:00] Running setup: t_kind_sub
+[INFO] [aa98461b-3e99-46a4-bb27-50e494bdcf5a] [2017-06-09 13:57:06 GMT+08:00] Running setup: t_food
+[INFO] [55c2d501-94f0-42ff-9769-0ee40efc35e1] [2017-06-09 13:57:06 GMT+08:00] Running setup: t_kind
+[INFO] [3d7d2d73-ef8a-4bea-aa36-f64d92865829] [2017-06-09 13:57:06 GMT+08:00] Running setup: t_order
+[INFO] [aa46d6b8-42a4-418a-ba80-50dcb8be3b97] [2017-06-09 14:05:19 GMT+08:00] Running setup: t_kind_sub
+[INFO] [4c503d3d-bc58-471f-b2f7-8efde19e0d47] [2017-06-09 14:05:19 GMT+08:00] Running setup: t_food
+[INFO] [1b1645f1-477e-4486-930b-6af93908ad60] [2017-06-09 14:05:19 GMT+08:00] Running setup: t_kind
+[INFO] [eb09bc6b-7dcf-4a18-822e-2bed60cc71ff] [2017-06-09 14:05:19 GMT+08:00] Running setup: t_order
+[INFO] [eba4c297-d9a8-484b-922d-f3eb839cbc31] [2017-06-09 14:08:47 GMT+08:00] Running setup: t_kind_sub
+[INFO] [69dcf27d-0d8b-4906-8b57-c92734a9149f] [2017-06-09 14:08:47 GMT+08:00] Running setup: t_food
+[INFO] [35bb09cc-9de0-4cc4-8e3b-2895a28f7a2f] [2017-06-09 14:08:47 GMT+08:00] Running setup: t_kind
+[INFO] [021afc31-df26-4efc-9930-661b8d482c99] [2017-06-09 14:08:47 GMT+08:00] Running setup: t_order

@@ -76,7 +76,7 @@ enum payWay: Int {
     
     var description: String {
         switch self {
-        case .huodaofk:
+ 	case .huodaofk:
             return "货到付款"
         case .paysuccess:
             return "支付成功"
