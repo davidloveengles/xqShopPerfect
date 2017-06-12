@@ -20,7 +20,7 @@ class OrderTable: MySQLStORM {
     var body            : String = ""               //订单数据  {"goods_detail":[{"price":2050,"goods_id":1,"goods_name":"aa-11-1111","quantity":2}]}
     var total_fee       : Int = 0                   //总价格单位（分）
     var userinfo        : String = ""
-    var addressinfo     : String = ""               //包含姓名电话地址
+    var addressinfo     : String = ""               //包含姓名电话地址  {"name":"David","phone":"111233","home":"Bdbdbbd2"}
     var createTime		: String = moment().format("yyyy-MM-dd HH:mm:ss")
     var payWay          : Int = 0                   //1:微信支付2:货到付款
     var status          : Int = 0                   //0:处理中1:成功2:取消

@@ -269,29 +269,30 @@ extension Handels {
         }
         
         if let body = (try? order.body.jsonDecode()) as? [String: Any],
-            let orders = body["goods_detail"] as? [[String: Any]]{
-//             {"goods_detail":[{"price":2050,"goods_id":1,"goods_name":"aa-11-1111","quantity":2}]}
+            let orders = body["goods_detail"] as? [[String: Any]]
+            {
             
             var keyword2 = ""
             for var order in orders {
                 if  let goods_name = order["goods_name"],
                     let quantity = order["quantity"],
-                    let price = order["price"] as? Int {
-                    keyword2.append("\(goods_name) x\(quantity) \(price / 100)元\n")
+                    let price = order["price"] as? Float {
+                    keyword2.append("\(goods_name) x\(quantity) \(price / 100.0)元\n")
                 }
             }
             
+            let addressinfo = try? order.addressinfo.jsonDecode() as? [String: Any]
+            let keyword4 = (addressinfo??["home"] as? String) ?? ""
             
             let body: [String : Any] = ["touser": order.openid,                 //接收者openid
                 "template_id": "hGDvSoPKzpxlRQZPBSdBvYyulTSz0pmRjNyb6bClF38",   //模板ID(订单提交成功通知)
                 "page": "shop",
                 "form_id": form_id,
                 "data": [
-//                            "first": ["value": "您好，您已成功下单"],
                             "keyword1": ["value": order.out_trade_no, "color": "#173177"],
                             "keyword2": ["value": keyword2, "color": "#173177"],
-                            "keyword3": ["value": "\(order.total_fee)元", "color": "#173177"],
-                            "keyword4": ["value": "我是收货地址", "color": "#173177"],
+                            "keyword3": ["value": "\(Float(order.total_fee) / 100)元", "color": "#173177"],
+                            "keyword4": ["value": keyword4, "color": "#173177"],
                             "keyword5": ["value": order.createTime, "color": "#173177"],
                             "keyword6": ["value": "感谢你的使用", "color": "#173177"]
                         ]
