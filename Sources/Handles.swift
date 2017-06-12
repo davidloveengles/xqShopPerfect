@@ -302,8 +302,8 @@ extension Handels {
                         "keyword5": ["value": order.createTime, "color": "#173177"],
                         "keyword6": ["value": "\(Float(order.total_fee) / 100)元", "color": "#173177"],
                         "keyword7": ["value": personPhone, "color": "#173177"],
-                        "keyword7": ["value": personHome, "color": "#173177"],
-                        "keyword6": ["value": "我是用户备注", "color": "#173177"]
+                        "keyword8": ["value": personHome, "color": "#173177"],
+                        "keyword9": ["value": "我是用户备注", "color": "#173177"]
                     ]
                 ]
             } else {
