@@ -62,7 +62,7 @@ extension Handels {
 
             if let code = request.param(name: "code") {
                 
-                let url = "https://api.weixin.qq.com/sns/jscode2session?appid=wxaae5d3bc30825d94&secret=8bbf7363955791c6aad2971744e4b32e&js_code=\(code)&grant_type=authorization_code"
+                let url = "https://api.weixin.qq.com/sns/jscode2session?appid=wxcdbda1d1c5fee50f&secret=8bbf7363955791c6aad2971744e4b32e&js_code=\(code)&grant_type=authorization_code"
                 let result = Utility.makeRequest(.get, url)
                 
 //                071QCuvB1xOpyg0ptDuB1S4kvB1QCuv1
@@ -166,10 +166,11 @@ extension Handels {
             let paramsDic = try? params?.jsonDecode() as? [String:Any]
             if  let openid = paramsDic??["openid"] as? String,
                 let total_fee = paramsDic??["total_fee"] as? Int,
-                let payWay = paramsDic??["payWay"] as? Int,
+                let payWay = (paramsDic??["payWay"] as? String)?.toInt(),
                 let orderList = try? (paramsDic??["orderList"] as? [String:Any]).jsonEncodedString(),
                 let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
-                let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString() {
+                let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString(),
+                let form_id = paramsDic??["form_id"] as? String{
                 
                 let order = OrderTable()
                 order.openid = openid
@@ -184,6 +185,9 @@ extension Handels {
                     status = .SUCCESS
                     msg = "操作成功"
     
+                    // 给公众号发送订单消息
+                    _ = self.postTemplateMsg(order: order,form_id: form_id)
+                    
                 }else {
                     msg = "操作失败"
                 }
@@ -193,12 +197,7 @@ extension Handels {
         }
     }
     
-}
-
-
-/// 订单
-extension Handels {
-    
+    /// 订单
     static func getAllOrder() -> RequestHandler {
         
         return {    request, response in
@@ -227,6 +226,87 @@ extension Handels {
             }
         }
     }
-
     
 }
+
+
+/// 模板消息操作
+extension Handels {
+    
+    static func getAccesstoken() -> String? {
+        
+        if GlobalData.share.availableAccessToken() {
+            return GlobalData.share.accessTokenDic?["access_token"] as? String
+        }
+        
+        let appid = "wxcdbda1d1c5fee50f";
+        let secret = "8bbf7363955791c6aad2971744e4b32e";
+        let url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=\(appid)&secret=\(secret)"
+        let result = Utility.makeRequest(.get, url)
+        
+        // expires_in现在是7200s
+        if let access_token = result["access_token"] as? String, let expires_in = result["expires_in"] {
+            
+            GlobalData.share.accessTokenDic = ["access_token": access_token,
+                                               "expires_in": expires_in,
+                                               "saveDate": Date().timeIntervalSince1970]
+            print("获取access_token成功")
+          return access_token
+        }
+        print("获取access_token失败")
+        return nil
+    }
+
+    /// 发送模板消息
+    // doc:https://mp.weixin.qq.com/wiki/?t=resource/res_main&id=mp1421140183&token=&lang=zh_CN
+    static func postTemplateMsg(order: OrderTable, form_id: String) -> [String:Any]? {
+        
+        guard let access_token = self.getAccesstoken() else{
+            return nil
+        }
+        
+        if let body = (try? order.body.jsonDecode()) as? [String: Any],
+            let orders = body["goods_detail"] as? [[String: String]]{
+//             {"goods_detail":[{"price":2050,"goods_id":1,"goods_name":"aa-11-1111","quantity":2}]}
+            
+            var keyword2 = ""
+            for var order in orders {
+                if  let goods_name = order["goods_name"],
+                    let quantity = order["quantity"],
+                    let price = order["price"] {
+                    keyword2.append("\(goods_name) x\(quantity) \(price)\n")
+                }
+            }
+            
+            
+            let body: [String : Any] = ["touser": order.openid,                 //接收者openid
+                "template_id": "hGDvSoPKzpxlRQZPBSdBvYyulTSz0pmRjNyb6bClF38",   //模板ID(订单提交成功通知)
+                "page": "shop",
+                "form_id": form_id,
+                "data": [
+//                            "first": ["value": "您好，您已成功下单"],
+                            "keyword1": ["value": order.out_trade_no, "color": "#173177"],
+                            "keyword2": ["value": keyword2, "color": "#173177"],
+                            "keyword3": ["value": "\(order.total_fee)", "color": "#173177"],
+                            "keyword3": ["value": "我是收货地址", "color": "#173177"],
+                            "keyword4": ["value": order.createTime, "color": "#173177"],
+                            "keyword6": ["value": "感谢你的使用", "color": "#173177"]
+                        ]
+                                        ]
+            let url =  "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=\(access_token)"
+            let result = Utility.makeRequest(.post, url, body: (try? body.jsonEncodedString()) ?? "")
+            
+            print(result)
+            return result
+            }
+            return nil
+        }
+        
+        
+       
+    
+
+}
+
+
+

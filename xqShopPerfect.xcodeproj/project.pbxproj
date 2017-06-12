@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		239115831EED7FDA003479A7 /* GlobalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 239115821EED7FDA003479A7 /* GlobalData.swift */; };
 		OBJ_1000 /* buffer.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_248 /* buffer.c */; };
 		OBJ_1001 /* by_dir.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_249 /* by_dir.c */; };
 		OBJ_1002 /* by_file.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_250 /* by_file.c */; };
@@ -1575,6 +1576,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		239115821EED7FDA003479A7 /* GlobalData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlobalData.swift; sourceTree = "<group>"; };
 		OBJ_10 /* Handles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Handles.swift; sourceTree = "<group>"; };
 		OBJ_100 /* inflate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inflate.h; sourceTree = "<group>"; };
 		OBJ_101 /* inftrees.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = inftrees.h; sourceTree = "<group>"; };
@@ -3509,7 +3511,7 @@
 			path = ".build/checkouts/StORM.git-6077292811663054913/Sources/StORM";
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_5 /*  */ = {
+		OBJ_5 = {
 			isa = PBXGroup;
 			children = (
 				OBJ_6 /* Package.swift */,
@@ -3518,7 +3520,6 @@
 				OBJ_21 /* Dependencies */,
 				OBJ_845 /* Products */,
 			);
-			name = "";
 			sourceTree = "<group>";
 		};
 		OBJ_50 /* PerfectRequestLogger 1.0.3 */ = {
@@ -3615,6 +3616,7 @@
 				OBJ_15 /* OrderTableOptor.swift */,
 				OBJ_16 /* ServerManager.swift */,
 				OBJ_17 /* SubKindTableOptor.swift */,
+				239115821EED7FDA003479A7 /* GlobalData.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -4208,7 +4210,7 @@
 			knownRegions = (
 				en,
 			);
-			mainGroup = OBJ_5 /*  */;
+			mainGroup = OBJ_5;
 			productRefGroup = OBJ_845 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -4478,6 +4480,7 @@
 				OBJ_1927 /* FoodTableOptor.swift in Sources */,
 				OBJ_1928 /* Handles.swift in Sources */,
 				OBJ_1929 /* KindTableOptor.swift in Sources */,
+				239115831EED7FDA003479A7 /* GlobalData.swift in Sources */,
 				OBJ_1930 /* main.swift in Sources */,
 				OBJ_1931 /* makeRequest.swift in Sources */,
 				OBJ_1932 /* MySQLConnect.swift in Sources */,

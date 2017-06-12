@@ -17,7 +17,7 @@ class OrderTable: MySQLStORM {
     var id              : Int = 0
     var openid          : String = ""
     var out_trade_no    : String = ""               //订单号
-    var body            : String = ""               //订单数据
+    var body            : String = ""               //订单数据  {"goods_detail":[{"price":2050,"goods_id":1,"goods_name":"aa-11-1111","quantity":2}]}
     var total_fee       : Int = 0                   //总价格单位（分）
     var userinfo        : String = ""
     var addressinfo     : String = ""               //包含姓名电话地址
@@ -113,11 +113,11 @@ class OrderModel: JSONConvertibleObject {
         payWay = {
             switch table.payWay {
             case 0:
-                return "货到付款"
+                return "订单已取消"
             case 1:
                 return "支付成功"
             case 2:
-                return "订单已取消"
+                return "货到付款"
             default:
                 return ""
             }
