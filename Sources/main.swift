@@ -63,7 +63,7 @@ let confData = [
 //            ]
 //        ],
         [
-            "name":host,
+            "name":"47.93.30.83",
             "port":80,
             "routes":[
                 ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.redirect,
