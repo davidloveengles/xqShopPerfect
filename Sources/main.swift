@@ -36,16 +36,11 @@ MySQLConnect.config()
 
 //var host = "47.93.30.83"
 //let port1 = 443, port2 = 80
-//// 214121370320445  zhangpangpang.cn
-//// 214124401610445  www.zhangpangpang.cn
-//
-//let confData = [
-//    "servers": [
-//        // Configuration data for one server which:
-//        //	* Serves the hello world message at <host>:<port>/
-//        //	* Serves static files out of the "./webroot"
-//        //		directory (which must be located in the current working directory).
-//        //	* Performs content compression on outgoing data when appropriate.
+// 214121370320445  zhangpangpang.cn
+// 214124401610445  www.zhangpangpang.cn
+
+let confData = [
+    "servers": [
 //        [
 //            "name":host,
 //            "port":port1,
@@ -67,20 +62,20 @@ MySQLConnect.config()
 //                "keyPath": "/home/aliyunhttps/214124401610445/214124401610445.key"
 //            ]
 //        ],
-//        [
-//            "name":host,
-//            "port":port2,
-//            "routes":[
-//                ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.redirect,
-//                 "base":"https://www.zhangpangpang.cn:\(port1)"]
-//            ]
-//        ]
-//    ]
-//]
-//
-//do {
-//    try HTTPServer.launch(configurationData: confData)
-//} catch {
-//    fatalError("\(error)")
-//}
+        [
+            "name":host,
+            "port":80,
+            "routes":[
+                ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.redirect,
+                 "base":"https://www.zhangpangpang.cn:\(443)"]
+            ]
+        ]
+    ]
+]
+
+do {
+    try HTTPServer.launch(configurationData: confData)
+} catch {
+    fatalError("\(error)")
+}
 
