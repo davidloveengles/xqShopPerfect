@@ -29,7 +29,7 @@ class ServerManager {
         
         server.documentRoot = root
         server.serverPort = port
-        server.serverName = host
+//        server.serverName = host
         
         var routes = Routes()
         configRoutes(routes: &routes)
@@ -74,9 +74,13 @@ class ServerManager {
             routes.add(method: .get, uri: "/xq/allfoods/query", handler: Handels.getAllFoods())
             
             routes.add(method: .get, uri: "/xq/openid", handler: Handels.getOpenId())
-            
+            // 货到付款下单
             routes.add(method: .post, uri: "/xq/order/order", handler: Handels.orderHandel())
-            
+            // 微信支付下单
+            routes.add(method: .post, uri: "/xq/order/payment", handler: Handels.payOrderHandle())
+            // 接收微信后台反馈支付结果
+            routes.add(method: .post, uri: "/xq/order/payment", handler: Handels.payResultHandler())
+            // 获取用户数据库订单列表
             routes.add(method: .get, uri: "/xq/order/all", handler: Handels.getAllOrder())
         }
 

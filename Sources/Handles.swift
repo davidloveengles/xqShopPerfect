@@ -84,9 +84,8 @@ extension Handels {
         }
     }
 
-    // 商户在小程序中先调用该接口在微信支付服务后台生成预支付交易单，返回正确的预支付交易后调起支付
-    // https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
-    static func getOrderData() -> RequestHandler {
+    static func payResultHandler() -> RequestHandler {
+        
         return {    request, response in
             
             var status: StatusCode = .Faile
@@ -98,17 +97,73 @@ extension Handels {
                 response.completed()
             }
             
-            if let _ = request.param(name: "openid"), let orderList = request.param(name: "orderList"), let total_fee = request.param(name: "total_fee") {
+            let params = request.postParams.first?.0
+            let paramsDic = try? params?.jsonDecode() as? [String:Any]
+            print("微信返回的支付结果：")
+            print(params)
+            
+//            if let code = request.param(name: "code") {
+//                
+//                if let openid = result["openid"] {
+//                    status = .SUCCESS
+//                    msg = "获取openid成功"
+//                    data = openid
+//                }else {
+//                    msg = "获取openid失败"
+//                }
+//            }else {
+//                msg = "参数不够"
+//            }
+        }
+    }
+    
+    
+    // 商户在小程序中先调用该接口在微信支付服务后台生成预支付交易单，返回正确的预支付交易后调起支付
+    // https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
+    static func payOrderHandle() -> RequestHandler {
+        return {    request, response in
+            
+            var status: StatusCode = .Faile
+            var msg: String = ""
+            var data: Any? = nil
+            defer {
+                let json = baseResponseJsonData(status: status, msg: msg, data: data)
+                response.appendBody(string: json)
+                response.completed()
+            }
+            
+            let params = request.postParams.first?.0
+            let paramsDic = try? params?.jsonDecode() as? [String:Any]
+            print(params)
+            if  let openid = paramsDic??["openid"] as? String,
+                let total_fee = paramsDic??["total_fee"] as? Int,
+                let payWay = (paramsDic??["payWay"] as? String)?.toInt(),
+                let orderList = try? (paramsDic??["orderList"] as? [String:Any]).jsonEncodedString(),
+                let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
+                let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString(),
+                let remark = paramsDic??["remark"] as? String,
+                let form_id = paramsDic??["form_id"] as? String {
                 
+//                let order = OrderTable()
+//                order.openid = openid
+//                order.body = orderList
+//                order.userinfo = userinfo
+//                order.addressinfo = addressinfo
+//                order.out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
+//                order.total_fee = total_fee
+//                order.payWay = payWay
+//                order.remark = remark
+                
+                
+                /** 调用下单接口*/
                 let appid = "wxcdbda1d1c5fee50f"
                 let body = orderList
-                let mch_id = "商户号"
+                let mch_id = "1482367232"
                 let nonce_str = Randoms.randomAlphaNumericString(length: 20)
-                let notify_url = "支付后接收微信的通知url-应该写个url接口"
+                let notify_url = "https://www.zhangpangpang.cn/xq/order/payment"
                 let out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
                 let sign_type = "MD5"
                 let spbill_create_ip = request.remoteAddress.host
-                let total_fee = "单位为分"
                 let trade_type = "JSAPI"
                 
                 let key = "商户key"// 不参与传值
@@ -127,23 +182,46 @@ extension Handels {
                 formData += "<notify_url>" + notify_url + "</notify_url>"
                 formData += "<out_trade_no>" + out_trade_no + "</out_trade_no>"
                 formData += "<spbill_create_ip>" + spbill_create_ip + "</spbill_create_ip>"
-                formData += "<total_fee>" + total_fee + "</total_fee>"
+                formData += "<total_fee>" + "\(total_fee)" + "</total_fee>"
                 formData += "<trade_type>" + trade_type + "</trade_type>"
                 formData += "<sign>" + sign + "</sign>"
                 formData += "</xml>"
                 
                 let url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
                 let result = Utility.makeRequest(.post, url, body: formData)
-               
+                
                 print(result)
-                //            if let kinds = KindTableOptor.shared.queryAllKinds() {
-                //                status = .SUCCESS
-                //                msg = "操作成功"
-                //                data = try? kinds.jsonEncodedString()
-                //
-                //            }else {
-                //                msg = "操作失败"
-                //            }
+               
+                
+                
+                
+//                if let _ = try? OrderTableOptor.shared.insertOrder(order: order) {
+//                    status = .SUCCESS
+//                    msg = "操作成功"
+//                    
+//                    // 给公众号发送订单消息
+//                    _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: true)
+//                    _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: false)
+//                    
+//                }else {
+//                    msg = "操作失败"
+//                }
+            }else {
+                msg = "参数不够"
+            }
+
+            
+            
+            if let _ = request.param(name: "openid"),
+                let orderList = request.param(name: "orderList"),
+                let total_fee = request.param(name: "total_fee"),
+                let payWay = request.param(name: "payWay"),
+                let userinfo = request.param(name: "userinfo"),
+                let addressinfo = request.param(name: "addressinfo"),
+                let remark = request.param(name: "remark"),
+                let form_id = request.param(name: "form_id") {
+                
+               
             }else {
                 msg = "参数不够"
             }
@@ -173,7 +251,7 @@ extension Handels {
                 let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
                 let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString(),
                 let remark = paramsDic??["remark"] as? String,
-                let form_id = paramsDic??["form_id"] as? String{
+                let form_id = paramsDic??["form_id"] as? String {
                 
                 let order = OrderTable()
                 order.openid = openid
