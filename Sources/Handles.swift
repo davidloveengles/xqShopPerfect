@@ -174,6 +174,8 @@ extension Handels {
                 if let bytes = signStr.digest(.md5)?.encode(.hex),let md5Sign = String(validatingUTF8: bytes)  {
                     sign = md5Sign.uppercased()
                 }
+                print("sign:")
+                print(sign)
                 
                 var formData = "<xml>"
                 formData += "<appid>" + appid + "</appid>"
