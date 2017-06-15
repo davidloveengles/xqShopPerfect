@@ -157,7 +157,8 @@ extension Handels {
                 
                 /** 调用下单接口*/
                 let appid = "wxcdbda1d1c5fee50f"
-                let body = orderList
+//                let body = orderList
+                let body = "海选便利店-超市商品购买"
                 let mch_id = "1482367232"
                 let nonce_str = Randoms.randomAlphaNumericString(length: 20)
                 let notify_url = "https://www.zhangpangpang.cn/xq/order/payresult"
@@ -176,7 +177,8 @@ extension Handels {
                 
                 var formData = "<xml>"
                 formData += "<appid>" + appid + "</appid>"
-                formData += "<body>![CDATA[" + body + "]]</body>"
+//                formData += "<body>![CDATA[" + body + "]]</body>"
+                formData += "<body>" + body + "</body>"
                 formData += "<mch_id>" + mch_id + "</mch_id>"
                 formData += "<nonce_str>" + nonce_str + "</nonce_str>"
                 formData += "<notify_url>" + notify_url + "</notify_url>"
