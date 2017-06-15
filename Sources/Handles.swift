@@ -170,7 +170,7 @@ extension Handels {
                 let key = "aaaaaaaaaaaaaaaa1111111111111111"// 商户key，不参与传值
                 
                 var sign = ""
-                let signStr = "appid=\(appid)&body=\(body)&mch_id=\(mch_id)&nonce_str=\(nonce_str)&notify_url=\(notify_url)&out_trade_no=\(out_trade_no)&spbill_create_ip=\(spbill_create_ip)&total_fee=\(total_fee)&trade_type=\(trade_type)&key=\(key)"
+                let signStr = "appid=\(appid)&body=\(body)&mch_id=\(mch_id)&nonce_str=\(nonce_str)&notify_url=\(notify_url)&openid=\(openid)&out_trade_no=\(out_trade_no)&spbill_create_ip=\(spbill_create_ip)&total_fee=\(total_fee)&trade_type=\(trade_type)&key=\(key)"
                 if let bytes = signStr.digest(.md5)?.encode(.hex),let md5Sign = String(validatingUTF8: bytes)  {
                     sign = md5Sign.uppercased()
                 }
@@ -184,6 +184,7 @@ extension Handels {
                 formData += "<mch_id>" + mch_id + "</mch_id>"
                 formData += "<nonce_str>" + nonce_str + "</nonce_str>"
                 formData += "<notify_url>" + notify_url + "</notify_url>"
+                formData += "<openid>" + openid + "</openid>"
                 formData += "<out_trade_no>" + out_trade_no + "</out_trade_no>"
                 formData += "<spbill_create_ip>" + spbill_create_ip + "</spbill_create_ip>"
                 formData += "<total_fee>" + "\(total_fee)" + "</total_fee>"
