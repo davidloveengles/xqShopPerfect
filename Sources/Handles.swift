@@ -166,7 +166,7 @@ extension Handels {
                 let spbill_create_ip = request.remoteAddress.host
                 let trade_type = "JSAPI"
                 
-                let key = "商户key"// 不参与传值
+                let key = "aaaaaaaaaaaaaaaa1111111111111111"// 商户key，不参与传值
                 
                 var sign = ""
                 let signStr = "appid=\(appid)&body=\(body)&mch_id=\(mch_id)&nonce_str=\(nonce_str)&notify_url=\(notify_url)&out_trade_no=\(out_trade_no)&sign_type=\(sign_type)&spbill_create_ip=\(spbill_create_ip)&total_fee=\(total_fee)&trade_type=\(trade_type)&key=\(key)"
@@ -190,6 +190,7 @@ extension Handels {
                 let url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
                 let result = Utility.makeRequest(.post, url, body: formData)
                 
+                print("支付下单后返回的结果：")
                 print(result)
                
                 
@@ -210,21 +211,6 @@ extension Handels {
                 msg = "参数不够"
             }
 
-            
-            
-            if let _ = request.param(name: "openid"),
-                let orderList = request.param(name: "orderList"),
-                let total_fee = request.param(name: "total_fee"),
-                let payWay = request.param(name: "payWay"),
-                let userinfo = request.param(name: "userinfo"),
-                let addressinfo = request.param(name: "addressinfo"),
-                let remark = request.param(name: "remark"),
-                let form_id = request.param(name: "form_id") {
-                
-               
-            }else {
-                msg = "参数不够"
-            }
         }
     }
     
