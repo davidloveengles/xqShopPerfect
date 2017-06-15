@@ -102,6 +102,7 @@ extension Utility {
 			}
 			return data
 		} catch {
+            print("服务端请求失败：\(content)")
 			return [:]
 		}
 	}
