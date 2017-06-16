@@ -224,13 +224,13 @@ extension Handels {
                 let nonce_str2 = parseXmlTag(xDoc: xDoc, tagName: "nonce_str")
                 
                 
-//                let appId = appid
+                let appId = appid
                 let nonceStr = nonce_str2 ?? ""
                 let package = "prepay_id=\(prepay_id ?? "")"
                 let signType = "MD5"
                 let timeStamp = Date().timeIntervalSince1970.description
                 var paySign = ""
-                let paysignStr = "nonceStr=\(nonceStr)&package=\(package)&signType=\(signType)&timeStamp=\(timeStamp)&key=\(key)"
+                let paysignStr = "appId=\(appId)nonceStr=\(nonceStr)&package=\(package)&signType=\(signType)&timeStamp=\(timeStamp)&key=\(key)"
                 if let bytes = paysignStr.digest(.md5)?.encode(.hex),let md5Sign = String(validatingUTF8: bytes)  {
                     paySign = md5Sign.uppercased()
                 }
