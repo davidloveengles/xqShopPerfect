@@ -230,7 +230,7 @@ extension Handels {
                 let signType = "MD5"
                 let timeStamp = Date().timeIntervalSince1970.description
                 var paySign = ""
-                let paysignStr = "appId=\(appId)nonceStr=\(nonceStr)&package=\(package)&signType=\(signType)&timeStamp=\(timeStamp)&key=\(key)"
+                let paysignStr = "appId=\(appId)&nonceStr=\(nonceStr)&package=\(package)&signType=\(signType)&timeStamp=\(timeStamp)&key=\(key)"
                 if let bytes = paysignStr.digest(.md5)?.encode(.hex),let md5Sign = String(validatingUTF8: bytes)  {
                     paySign = md5Sign.uppercased()
                 }
