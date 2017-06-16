@@ -16,6 +16,8 @@ import PerfectCrypto
 import SwiftRandom
 import SwiftMoment
 
+import PerfectXML
+
 struct Handels {
     
     static func getAllFoods() -> RequestHandler {
@@ -100,7 +102,7 @@ extension Handels {
             let params = request.postParams.first?.0
             let paramsDic = try? params?.jsonDecode() as? [String:Any]
             print("微信返回的支付结果：")
-            print(params)
+            print(params ?? "null")
             
 //            if let code = request.param(name: "code") {
 //                
@@ -121,12 +123,13 @@ extension Handels {
     // 商户在小程序中先调用该接口在微信支付服务后台生成预支付交易单，返回正确的预支付交易后调起支付
     // https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1
     static func payOrderHandle() -> RequestHandler {
-        return {    request, response in
+        return { (request, response) in
             
             var status: StatusCode = .Faile
             var msg: String = ""
             var data: Any? = nil
             defer {
+                print(msg)
                 let json = baseResponseJsonData(status: status, msg: msg, data: data)
                 response.appendBody(string: json)
                 response.completed()
@@ -134,7 +137,7 @@ extension Handels {
             
             let params = request.postParams.first?.0
             let paramsDic = try? params?.jsonDecode() as? [String:Any]
-            print(params)
+            print(params ?? "")
             if  let openid = paramsDic??["openid"] as? String,
                 let total_fee = paramsDic??["total_fee"] as? Int,
                 let payWay = paramsDic??["payWay"] as? Int,
@@ -144,16 +147,20 @@ extension Handels {
                 let remark = paramsDic??["remark"] as? String,
                 let form_id = paramsDic??["form_id"] as? String {
                 
-//                let order = OrderTable()
-//                order.openid = openid
-//                order.body = orderList
-//                order.userinfo = userinfo
-//                order.addressinfo = addressinfo
-//                order.out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
-//                order.total_fee = total_fee
-//                order.payWay = payWay
-//                order.remark = remark
-                
+                /** 插入数据库*/
+                let order = OrderTable()
+                order.openid = openid
+                order.body = orderList
+                order.userinfo = userinfo
+                order.addressinfo = addressinfo
+                order.out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
+                order.total_fee = total_fee
+                order.payWay = payWay
+                order.remark = remark
+                guard let _ = try? OrderTableOptor.shared.insertOrder(order: order) else{
+                    msg = "操作失败"
+                    return
+                }
                 
                 /** 调用下单接口*/
                 let appid = "wxcdbda1d1c5fee50f"
@@ -163,7 +170,7 @@ extension Handels {
                 let nonce_str = Randoms.randomAlphaNumericString(length: 20)
                 let notify_url = "https://www.zhangpangpang.cn/xq/order/payresult"
                 let out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
-                let sign_type = "MD5"
+//                let sign_type = "MD5"
                 let spbill_create_ip = request.remoteAddress.host
                 let trade_type = "JSAPI"
                 
@@ -193,25 +200,46 @@ extension Handels {
                 formData += "</xml>"
                 
                 let url = "https://api.mch.weixin.qq.com/pay/unifiedorder"
-                let result = Utility.makeRequest(.post, url, body: formData)
+                let result = Utility.makeRequest(.post, url, body: formData, encoding: "xml")
+                
+//                Optional("<xml><return_code><![CDATA[SUCCESS]]></return_code>\n<return_msg><![CDATA[OK]]></return_msg>\n<appid><![CDATA[wxcdbda1d1c5fee50f]]></appid>\n<mch_id><![CDATA[1482367232]]></mch_id>\n<nonce_str><![CDATA[2kSNbgTEaOz1kV02]]></nonce_str>\n<sign><![CDATA[A796FB666CB63187E29877248DF324B8]]></sign>\n<result_code><![CDATA[SUCCESS]]></result_code>\n<prepay_id><![CDATA[wx2017061523512830c2f6b7ce0558429784]]></prepay_id>\n<trade_type><![CDATA[JSAPI]]></trade_type>\n</xml>")
                 
                 print("支付下单后返回的结果：")
                 print(result)
-               
+                
+                /** 处理下单响应*/
+                guard let xmlstring = result["response"] as? String, let xDoc = XDocument(fromSource: xmlstring) else{
+                    msg = "响应的结果解析错误"
+                    return
+                }
+                
+                guard let _ = parseXmlTag(xDoc: xDoc, tagName: "result_code") else {
+                    let err_code = parseXmlTag(xDoc: xDoc, tagName: "err_code") ?? ""
+                    let err_code_des = parseXmlTag(xDoc: xDoc, tagName: "err_code_des") ?? ""
+                    msg = "下单失败--错误码：\(err_code) \(err_code_des)"
+                    return
+                }
+                
+                let prepay_id = parseXmlTag(xDoc: xDoc, tagName: "prepay_id")
+                let nonce_str2 = parseXmlTag(xDoc: xDoc, tagName: "nonce_str")
                 
                 
+                let appId = appid
+                let nonceStr = nonce_str2 ?? ""
+                let package = prepay_id ?? ""
+                let signType = "MD5"
+                let timeStamp = Date().timeIntervalSince1970
+                var paySign = ""
+                let paysignStr = "appid=\(appid)&nonceStr=\(nonceStr)&package=\(package)&signType=\(signType)&timeStamp=\(timeStamp)&key=\(key)"
+                if let bytes = paysignStr.digest(.md5)?.encode(.hex),let md5Sign = String(validatingUTF8: bytes)  {
+                    paySign = md5Sign.uppercased()
+                }
                 
-//                if let _ = try? OrderTableOptor.shared.insertOrder(order: order) {
-//                    status = .SUCCESS
-//                    msg = "操作成功"
-//                    
-//                    // 给公众号发送订单消息
-//                    _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: true)
-//                    _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: false)
-//                    
-//                }else {
-//                    msg = "操作失败"
-//                }
+                let responDic: [String: Any] = ["appId": appId, "nonceStr": nonceStr, "package": package, "signType": signType, "timeStamp": timeStamp, "paySign": paySign]
+                
+                status = .SUCCESS
+                msg = "操作成功"
+                data = (try? responDic.jsonEncodedString()) ?? ""
             }else {
                 msg = "参数不够"
             }
@@ -219,7 +247,7 @@ extension Handels {
         }
     }
     
-    // 货到付款方式下单
+    /// 货到付款方式下单
     static func orderHandel() -> RequestHandler {
         return {    request, response in
             
@@ -234,7 +262,7 @@ extension Handels {
             
             let params = request.postParams.first?.0
             let paramsDic = try? params?.jsonDecode() as? [String:Any]
-        	print(params)   
+            print(params ?? "")
             if  let openid = paramsDic??["openid"] as? String,
                 let total_fee = paramsDic??["total_fee"] as? Int,
                 let payWay = paramsDic??["payWay"] as? Int,
@@ -405,10 +433,30 @@ extension Handels {
             return nil
         }
         
-        
-       
     
 
+}
+
+/// 私有
+extension Handels {
+    
+    /// xml解析单节点
+    static func parseXmlTag(xDoc: XDocument, tagName: String) -> String? {
+        
+        guard let node = xDoc.documentElement?.getElementsByTagName(tagName) else {
+            print("未找到标签“\(tagName)”\n")
+            return nil
+        }
+        
+        // 如果找到了，就提取首个节点作为代表
+        guard let value = node.first?.nodeValue else {
+            print("标签“\(tagName)”不包含内容。\n")
+            return nil
+        }
+        
+        return value
+    }
+    
 }
 
 
