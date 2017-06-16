@@ -228,7 +228,7 @@ extension Handels {
                 let nonceStr = nonce_str2 ?? ""
                 let package = prepay_id ?? ""
                 let signType = "MD5"
-                let timeStamp = Date().timeIntervalSince1970
+                let timeStamp = Date().timeIntervalSince1970.description
                 var paySign = ""
                 let paysignStr = "appid=\(appid)&nonceStr=\(nonceStr)&package=\(package)&signType=\(signType)&timeStamp=\(timeStamp)&key=\(key)"
                 if let bytes = paysignStr.digest(.md5)?.encode(.hex),let md5Sign = String(validatingUTF8: bytes)  {
