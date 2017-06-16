@@ -158,7 +158,7 @@ extension Handels {
                 order.payWay = payWay
                 order.remark = remark
                 guard let _ = try? OrderTableOptor.shared.insertOrder(order: order) else{
-                    msg = "操作失败"
+                    msg = "插入数据库失败"
                     return
                 }
                 
