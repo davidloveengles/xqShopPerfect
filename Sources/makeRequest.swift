@@ -96,17 +96,20 @@ extension Utility {
 
 		// parse the body data into a json convertible
 		do {
-			if (content?.characters.count)! > 0 {
-				if (content?.startsWith("["))! {
-					let arr = try content?.jsonDecode() as! [Any]
-					data["response"] = arr
-				} else {
-					data = try content?.jsonDecode() as! [String : Any]
-				}
-			}
+            if let content = content {
+                if content.startsWith("[") {
+                    let arr = try content.jsonDecode() as! [Any]
+                    data["response"] = arr
+                }else if content.startsWith("{") {
+                    data = try content.jsonDecode() as! [String : Any]
+                } else if content.startsWith("<xml>") {
+                   data["response"] = content
+                }
+            }
+            
 			return data
 		} catch {
-            print("服务端请求失败：\(content)")
+            print("服务端请求失败：\(content ?? "")")
 			return [:]
 		}
 	}
