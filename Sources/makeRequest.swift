@@ -51,9 +51,13 @@ extension Utility {
 
 			if encoding == "form" {
 				curlObject.setOption(CURLOPT_HTTPHEADER, s: "Content-Type: application/x-www-form-urlencoded")
+            }
+            else if encoding == "xml" {
+                curlObject.setOption(CURLOPT_HTTPHEADER, s: "Content-Type: application/xml")
 			} else {
 				curlObject.setOption(CURLOPT_HTTPHEADER, s: "Content-Type: application/json")
 			}
+            
 
 		default: //.get :
 			curlObject.setOption(CURLOPT_HTTPGET, int: 1)
