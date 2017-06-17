@@ -195,6 +195,7 @@ class OrderTableOptor: DBBaseOperator {
         
         do {
             try order.find(["out_trade_no" : trade_no])
+            print("order.id \(order.id)")
             try order.update(cols: ["payWay"], params: [payWay], idName: "id", idValue: order.id)
         }catch {
             throw error
