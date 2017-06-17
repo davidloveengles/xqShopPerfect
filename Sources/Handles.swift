@@ -90,32 +90,57 @@ extension Handels {
         
         return {    request, response in
             
-            var status: StatusCode = .Faile
-            var msg: String = ""
-            var data: Any? = nil
+            var msg = ""
+            var result = ""
             defer {
-                let json = baseResponseJsonData(status: status, msg: msg, data: data)
-                response.appendBody(string: json)
+                print(msg)
+                response.appendBody(string: result)
                 response.completed()
             }
             
             let params = request.postParams.first?.0
-            let paramsDic = try? params?.jsonDecode() as? [String:Any]
-            print("微信返回的支付结果：")
+            print("微信返回的支付通知：")
             print(params ?? "null")
             
-//            if let code = request.param(name: "code") {
-//                
-//                if let openid = result["openid"] {
-//                    status = .SUCCESS
-//                    msg = "获取openid成功"
-//                    data = openid
-//                }else {
-//                    msg = "获取openid失败"
-//                }
-//            }else {
-//                msg = "参数不够"
-//            }
+//            <xml><appid><![CDATA[wxcdbda1d1c5fee50f]]></appid>
+//            <bank_type><![CDATA[CFT]]></bank_type>
+//            <cash_fee><![CDATA[1]]></cash_fee>
+//            <fee_type><![CDATA[CNY]]></fee_type>
+//            <is_subscribe><![CDATA[N]]></is_subscribe>
+//            <mch_id><![CDATA[1482367232]]></mch_id>
+//            <nonce_str><![CDATA[rY3lntn5QRqy6FToEs83]]></nonce_str>
+//            <openid><![CDATA[ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM]]></openid>
+//            <out_trade_no><![CDATA[201706161351485647]]></out_trade_no>
+//            <result_code><![CDATA[SUCCESS]]></result_code>
+//            <return_code><![CDATA[SUCCESS]]></return_code>
+//            <sign><![CDATA[57397266D0239D66278480C3FB800E94]]></sign>
+//            <time_end><![CDATA[20170616135157]]></time_end>
+//            <total_fee>1</total_fee>
+//            <trade_type><![CDATA[JSAPI]]></trade_type>
+//            <transaction_id><![CDATA[4007612001201706165974538874]]></transaction_id>
+//            </xml>
+            
+            guard let xmlstring = params, let xDoc = XDocument(fromSource: xmlstring) else{
+                msg = "响应的结果解析错误"
+                return
+            }
+            
+            guard let result_code = parseXmlTag(xDoc: xDoc, tagName: "result_code"), result_code == "SUCCESS" else {
+                let err_code = parseXmlTag(xDoc: xDoc, tagName: "err_code") ?? ""
+                let err_code_des = parseXmlTag(xDoc: xDoc, tagName: "err_code_des") ?? ""
+                msg = "shibai--错误码：\(err_code) \(err_code_des)"
+                return
+            }
+            
+            if let _ = try? OrderTableOptor.shared.updateOrderPayResult(trade_no: "out_trade_no", payWay: 3) {
+                var formData = "<xml>"
+                formData += "<return_code>![CDATA[SUCCESS]]</return_code>"
+                formData += "<return_msg>![CDATA[OK]]</return_msg>"
+                formData += "</xml>"
+                result = formData
+                msg = "处理支付结果通知成功"
+            }
+            
         }
     }
     
@@ -145,9 +170,9 @@ extension Handels {
                 let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
                 let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString(),
                 let remark = paramsDic??["remark"] as? String,
-                let form_id = paramsDic??["form_id"] as? String {
+                let _ = paramsDic??["form_id"] as? String {
                 
-                /** 插入数据库*/
+                /** 插入数据库(查询的时候只查询支付成功的订单)*/
                 let order = OrderTable()
                 order.openid = openid
                 order.body = orderList
@@ -213,7 +238,7 @@ extension Handels {
                     return
                 }
                 
-                guard let _ = parseXmlTag(xDoc: xDoc, tagName: "result_code") else {
+                guard let result_code = parseXmlTag(xDoc: xDoc, tagName: "result_code"), result_code == "SUCCESS" else {
                     let err_code = parseXmlTag(xDoc: xDoc, tagName: "err_code") ?? ""
                     let err_code_des = parseXmlTag(xDoc: xDoc, tagName: "err_code_des") ?? ""
                     msg = "下单失败--错误码：\(err_code) \(err_code_des)"
