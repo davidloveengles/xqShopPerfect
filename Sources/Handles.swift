@@ -372,7 +372,7 @@ extension Handels {
     
     static func getAccesstoken() -> String? {
         
-        if GlobalData.share.availableAccessToken() {
+        if GlobalData.share.availableAccessToken() == true {
             print("使用缓存的access_token")
             return GlobalData.share.accessTokenDic?["access_token"] as? String
         }
@@ -456,7 +456,7 @@ extension Handels {
                                 "keyword3": ["value": "\(Float(order.total_fee) / 100)元", "color": "#173177"],
                                 "keyword4": ["value": personHome, "color": "#173177"],
                                 "keyword5": ["value": order.createTime, "color": "#173177"],
-                                "keyword6": ["value": "感谢你的使用", "color": "#173177"]
+                                "keyword6": ["value": "客服电话：18828288888", "color": "#173177"]
                             ]
                         ]
                     }
