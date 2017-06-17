@@ -25,7 +25,7 @@ extension GlobalData {
         print("accessTokenDic:\(accessTokenDic)")
         if let token = accessTokenDic,
             let _ = token["access_token"] as? String,
-            let expires_in = token["expires_in"] as? TimeInterval,
+            let expires_in = token["expires_in"] as? Int,
             let saveDate = token["saveDate"] as? TimeInterval{
             
             if Date().timeIntervalSince1970 - saveDate < TimeInterval(expires_in - 600) {

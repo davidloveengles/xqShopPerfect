@@ -383,7 +383,7 @@ extension Handels {
         let result = Utility.makeRequest(.get, url)
         
         // expires_in现在是7200s
-        if let access_token = result["access_token"] as? String, let expires_in = result["expires_in"] {
+        if let access_token = result["access_token"] as? String, let expires_in = result["expires_in"] as? Int {
             
             GlobalData.share.accessTokenDic = ["access_token": access_token,
                                                "expires_in": expires_in,
