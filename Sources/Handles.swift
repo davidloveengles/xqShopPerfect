@@ -135,8 +135,8 @@ extension Handels {
             
             if let order =  OrderTableOptor.shared.updateOrderPayResult(trade_no: out_trade_no, payWay: 3) {
                 var formData = "<xml>"
-                formData += "<return_code>![CDATA[SUCCESS]]</return_code>"
-                formData += "<return_msg>![CDATA[OK]]</return_msg>"
+                formData += "<return_code><![CDATA[SUCCESS]]></return_code>"
+                formData += "<return_msg><![CDATA[OK]]></return_msg>"
                 formData += "</xml>"
                 result = formData
                 msg = "处理支付结果通知成功"
