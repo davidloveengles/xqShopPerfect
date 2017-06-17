@@ -205,6 +205,7 @@ class OrderTableOptor: DBBaseOperator {
             print("trade_no \(trade_no)")
             print("find order \(order.id)")
             try order.update(cols: ["payWay"], params: [payWay], idName: "id", idValue: order.id)
+            order.payWay = payWay
             return order
         }catch {
             return nil

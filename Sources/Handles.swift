@@ -140,7 +140,7 @@ extension Handels {
                 formData += "</xml>"
                 result = formData
                 msg = "处理支付结果通知成功"
-                
+                print("find order payway \(order.payWay)")
                 // 给微信发送订单消息
                 _ = self.postTemplateMsg(order: order, isMaster: true)
                 _ = self.postTemplateMsg(order: order, isMaster: false)
