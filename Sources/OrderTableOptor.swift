@@ -24,6 +24,7 @@ class OrderTable: MySQLStORM {
     var addressinfo     : String = ""               //包含姓名电话地址  {"name":"David","phone":"111233","home":"Bdbdbbd2"}
     var createTime		: String = moment().format("yyyy-MM-dd HH:mm:ss")
     var form_id         : String = ""               //客户备注
+    var prepay_id       : String = ""               //微信支付prepay_id
     var payWay          : Int = 0                   //1:微信支付2:货到付款3:支付成功
     var status          : Int = 0                   //0:处理中1:成功2:取消（暂时没用，直接用payWay）
     
@@ -58,7 +59,8 @@ class OrderTable: MySQLStORM {
         addressinfo         = this.data["addressinfo"] as? String   ?? ""
         createTime          = this.data["createTime"] as? String ?? ""
         remark              = this.data["remark"] as? String ?? ""
-        form_id              = this.data["form_id"] as? String ?? ""
+        prepay_id           = this.data["prepay_id"] as? String ?? ""
+        form_id             = this.data["form_id"] as? String ?? ""
     }
     
     func rows() -> [OrderTable] {
@@ -86,6 +88,7 @@ class OrderModel: JSONConvertibleObject {
     var addressinfo     : String = ""
     var createTime		: String = ""
     var remark          : String = ""
+    var prepay_id       : String = ""
     var form_id         : String = ""
     var payWay          : String = ""
     var status          : Int = 0
@@ -103,6 +106,7 @@ class OrderModel: JSONConvertibleObject {
         createTime = table.createTime
         remark = table.remark
         form_id = table.form_id
+        prepay_id = table.prepay_id
         payWay = {
             switch table.payWay {
             case 1:
@@ -130,6 +134,7 @@ class OrderModel: JSONConvertibleObject {
         self.addressinfo = getJSONValue(named: "addressinfo", from: values, defaultValue: "")
         self.createTime = getJSONValue(named: "createTime", from: values, defaultValue: "")
         self.remark = getJSONValue(named: "remark", from: values, defaultValue: "")
+        self.prepay_id = getJSONValue(named: "prepay_id", from: values, defaultValue: "")
         self.form_id = getJSONValue(named: "form_id", from: values, defaultValue: "")
         self.payWay = getJSONValue(named: "payWay", from: values, defaultValue: "")
         self.status = getJSONValue(named: "status", from: values, defaultValue: 0)
@@ -146,6 +151,7 @@ class OrderModel: JSONConvertibleObject {
             "addressinfo":addressinfo,
             "createTime":createTime,
             "remark":remark,
+            "prepay_id":prepay_id,
             "form_id":form_id,
             "payWay":payWay,
             "status":status

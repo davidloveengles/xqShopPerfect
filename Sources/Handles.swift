@@ -188,10 +188,7 @@ extension Handels {
                 order.payWay = payWay
                 order.remark = remark
                 order.form_id = form_id
-                guard let _ = try? OrderTableOptor.shared.insertOrder(order: order) else{
-                    msg = "插入数据库失败"
-                    return
-                }
+               
                 
                 /** 调用下单接口*/
                 let appid = "wxcdbda1d1c5fee50f"
@@ -254,6 +251,12 @@ extension Handels {
                 let prepay_id = parseXmlTag(xDoc: xDoc, tagName: "prepay_id")
                 let nonce_str2 = parseXmlTag(xDoc: xDoc, tagName: "nonce_str")
                 
+                //插入数据库
+                order.prepay_id = prepay_id ?? ""
+                guard let _ = try? OrderTableOptor.shared.insertOrder(order: order) else{
+                    msg = "插入数据库失败"
+                    return
+                }
                 
                 let appId = appid
                 let nonceStr = nonce_str2 ?? ""
@@ -446,7 +449,7 @@ extension Handels {
                         body  = ["touser": order.openid,                 //接收者openid
                             "template_id": "B9Tnfu8IogA-MhIng3Lg2vBl85J3adE4MB8bC7s-E90",   //模板ID(订单支付成功通知)
                             "page": "shop",
-                            "form_id": order.form_id,
+                            "form_id": order.prepay_id,
                             "data": [
                                 "keyword1": ["value": order.out_trade_no, "color": "#173177"],
                                 "keyword2": ["value": orderInfo, "color": "#173177"],
