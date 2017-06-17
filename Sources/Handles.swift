@@ -132,7 +132,7 @@ extension Handels {
                 return
             }
             
-            if let _ = try? OrderTableOptor.shared.updateOrderPayResult(trade_no: "out_trade_no", payWay: 3) {
+            if let order =  OrderTableOptor.shared.updateOrderPayResult(trade_no: "out_trade_no", payWay: 3) {
                 var formData = "<xml>"
                 formData += "<return_code>![CDATA[SUCCESS]]</return_code>"
                 formData += "<return_msg>![CDATA[OK]]</return_msg>"
@@ -141,8 +141,8 @@ extension Handels {
                 msg = "处理支付结果通知成功"
                 
                 // 给微信发送订单消息
-                _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: true)
-                _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: false)
+                _ = self.postTemplateMsg(order: order, isMaster: true)
+                _ = self.postTemplateMsg(order: order, isMaster: false)
             }
             
         }
@@ -174,7 +174,7 @@ extension Handels {
                 let userinfo = try? (paramsDic??["userinfo"] as? [String:Any]).jsonEncodedString(),
                 let addressinfo = try? (paramsDic??["addressinfo"] as? [String:Any]).jsonEncodedString(),
                 let remark = paramsDic??["remark"] as? String,
-                let _ = paramsDic??["form_id"] as? String {
+                let form_id = paramsDic??["form_id"] as? String {
                 
                 /** 插入数据库(查询的时候只查询支付成功的订单)*/
                 let order = OrderTable()
@@ -186,6 +186,7 @@ extension Handels {
                 order.total_fee = total_fee
                 order.payWay = payWay
                 order.remark = remark
+                order.form_id = form_id
                 guard let _ = try? OrderTableOptor.shared.insertOrder(order: order) else{
                     msg = "插入数据库失败"
                     return
@@ -310,14 +311,15 @@ extension Handels {
                 order.total_fee = total_fee
                 order.payWay = payWay
                 order.remark = remark
+                order.form_id = form_id
                 
                 if let _ = try? OrderTableOptor.shared.insertOrder(order: order) {
                     status = .SUCCESS
                     msg = "操作成功"
     
                     // 给微信发送订单消息
-                    _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: true)
-                    _ = self.postTemplateMsg(order: order,form_id: form_id, isMaster: false)
+                    _ = self.postTemplateMsg(order: order, isMaster: true)
+                    _ = self.postTemplateMsg(order: order, isMaster: false)
                     
                 }else {
                     msg = "操作失败"
@@ -390,7 +392,7 @@ extension Handels {
     }
 
     /// 发送模板消息
-    static func postTemplateMsg(order: OrderTable, form_id: String, isMaster: Bool) -> [String:Any]? {
+    static func postTemplateMsg(order: OrderTable, isMaster: Bool) -> [String:Any]? {
         
         guard let access_token = self.getAccesstoken() else{
             return nil
@@ -425,7 +427,7 @@ extension Handels {
                         body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
                                  "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
                             "page": "pages/shop/shop",
-                            "form_id": form_id,
+                            "form_id": order.form_id,
                             "data": [
                                 "keyword1": ["value": order.out_trade_no, "color": "#173177"],
                                 "keyword2": ["value": orderInfo, "color": "#173177"],
@@ -443,7 +445,7 @@ extension Handels {
                         body  = ["touser": order.openid,                 //接收者openid
                             "template_id": "B9Tnfu8IogA-MhIng3Lg2vBl85J3adE4MB8bC7s-E90",   //模板ID(订单支付成功通知)
                             "page": "shop",
-                            "form_id": form_id,
+                            "form_id": order.form_id,
                             "data": [
                                 "keyword1": ["value": order.out_trade_no, "color": "#173177"],
                                 "keyword2": ["value": orderInfo, "color": "#173177"],
@@ -462,7 +464,7 @@ extension Handels {
                         body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
                                  "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
                             "page": "pages/shop/shop",
-                            "form_id": form_id,
+                            "form_id": order.form_id,
                             "data": [
                                 "keyword1": ["value": order.out_trade_no, "color": "#173177"],
                                 "keyword2": ["value": orderInfo, "color": "#173177"],
@@ -480,7 +482,7 @@ extension Handels {
                         body  = ["touser": order.openid,                 //接收者openid
                             "template_id": "hGDvSoPKzpxlRQZPBSdBvYyulTSz0pmRjNyb6bClF38",   //模板ID(订单提交成功通知)
                             "page": "shop",
-                            "form_id": form_id,
+                            "form_id": order.form_id,
                             "data": [
                                 "keyword1": ["value": order.out_trade_no, "color": "#173177"],
                                 "keyword2": ["value": orderInfo, "color": "#173177"],

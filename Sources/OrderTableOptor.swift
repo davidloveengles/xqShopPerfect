@@ -23,6 +23,7 @@ class OrderTable: MySQLStORM {
     var remark          : String = ""               //客户备注
     var addressinfo     : String = ""               //包含姓名电话地址  {"name":"David","phone":"111233","home":"Bdbdbbd2"}
     var createTime		: String = moment().format("yyyy-MM-dd HH:mm:ss")
+    var form_id         : String = ""               //客户备注
     var payWay          : Int = 0                   //1:微信支付2:货到付款3:支付成功
     var status          : Int = 0                   //0:处理中1:成功2:取消（暂时没用，直接用payWay）
     
@@ -57,6 +58,7 @@ class OrderTable: MySQLStORM {
         addressinfo         = this.data["addressinfo"] as? String   ?? ""
         createTime          = this.data["createTime"] as? String ?? ""
         remark              = this.data["remark"] as? String ?? ""
+        form_id              = this.data["form_id"] as? String ?? ""
     }
     
     func rows() -> [OrderTable] {
@@ -84,6 +86,7 @@ class OrderModel: JSONConvertibleObject {
     var addressinfo     : String = ""
     var createTime		: String = ""
     var remark          : String = ""
+    var form_id         : String = ""
     var payWay          : String = ""
     var status          : Int = 0
     
@@ -99,6 +102,7 @@ class OrderModel: JSONConvertibleObject {
         addressinfo = table.addressinfo
         createTime = table.createTime
         remark = table.remark
+        form_id = table.form_id
         payWay = {
             switch table.payWay {
             case 1:
@@ -125,8 +129,9 @@ class OrderModel: JSONConvertibleObject {
         self.userinfo = getJSONValue(named: "userinfo", from: values, defaultValue: "")
         self.addressinfo = getJSONValue(named: "addressinfo", from: values, defaultValue: "")
         self.createTime = getJSONValue(named: "createTime", from: values, defaultValue: "")
-        self.createTime = getJSONValue(named: "createTime", from: values, defaultValue: "")
-        self.remark = getJSONValue(named: "payWay", from: values, defaultValue: "")
+        self.remark = getJSONValue(named: "remark", from: values, defaultValue: "")
+        self.form_id = getJSONValue(named: "form_id", from: values, defaultValue: "")
+        self.payWay = getJSONValue(named: "payWay", from: values, defaultValue: "")
         self.status = getJSONValue(named: "status", from: values, defaultValue: 0)
     }
     override func getJSONValues() -> [String : Any] {
@@ -141,6 +146,7 @@ class OrderModel: JSONConvertibleObject {
             "addressinfo":addressinfo,
             "createTime":createTime,
             "remark":remark,
+            "form_id":form_id,
             "payWay":payWay,
             "status":status
         ]
@@ -188,7 +194,7 @@ class OrderTableOptor: DBBaseOperator {
         return m_orderList
     }
     
-    func updateOrderPayResult(trade_no: String, payWay: Int) throws {
+    func updateOrderPayResult(trade_no: String, payWay: Int) -> OrderTable? {
         
         let order = OrderTable()
         order.out_trade_no = trade_no
@@ -197,8 +203,9 @@ class OrderTableOptor: DBBaseOperator {
             try order.find(["out_trade_no" : trade_no])
             print("order.id \(order.id)")
             try order.update(cols: ["payWay"], params: [payWay], idName: "id", idValue: order.id)
+            return order
         }catch {
-            throw error
+            return nil
         }
         
     }
