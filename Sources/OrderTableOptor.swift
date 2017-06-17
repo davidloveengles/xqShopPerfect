@@ -164,6 +164,7 @@ class OrderTableOptor: DBBaseOperator {
     
     
     func insertOrder(order: OrderTable) throws {
+        print("插入数据order no:\(order.out_trade_no)")
         do {
             try order.save()
         }catch {

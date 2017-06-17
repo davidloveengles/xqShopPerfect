@@ -200,7 +200,7 @@ extension Handels {
                 let mch_id = "1482367232"
                 let nonce_str = Randoms.randomAlphaNumericString(length: 20)
                 let notify_url = "https://www.zhangpangpang.cn/xq/order/payresult"
-                let out_trade_no = "\(moment().format("yyyyMMddHHmmss"))\(Randoms.randomInt(lower: 1000, 9000))"
+                let out_trade_no = order.out_trade_no
 //                let sign_type = "MD5"
                 let spbill_create_ip = request.remoteAddress.host
                 let trade_type = "JSAPI"
