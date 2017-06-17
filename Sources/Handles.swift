@@ -125,14 +125,15 @@ extension Handels {
                 return
             }
             
-            guard let result_code = parseXmlTag(xDoc: xDoc, tagName: "result_code"), result_code == "SUCCESS" else {
+            guard let result_code = parseXmlTag(xDoc: xDoc, tagName: "result_code"), result_code == "SUCCESS",
+                    let out_trade_no = parseXmlTag(xDoc: xDoc, tagName: "out_trade_no") else {
                 let err_code = parseXmlTag(xDoc: xDoc, tagName: "err_code") ?? ""
                 let err_code_des = parseXmlTag(xDoc: xDoc, tagName: "err_code_des") ?? ""
                 msg = "支付失败--错误码：\(err_code) \(err_code_des)"
                 return
             }
             
-            if let order =  OrderTableOptor.shared.updateOrderPayResult(trade_no: "out_trade_no", payWay: 3) {
+            if let order =  OrderTableOptor.shared.updateOrderPayResult(trade_no: out_trade_no, payWay: 3) {
                 var formData = "<xml>"
                 formData += "<return_code>![CDATA[SUCCESS]]</return_code>"
                 formData += "<return_msg>![CDATA[OK]]</return_msg>"
