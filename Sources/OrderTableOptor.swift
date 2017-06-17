@@ -23,8 +23,8 @@ class OrderTable: MySQLStORM {
     var remark          : String = ""               //客户备注
     var addressinfo     : String = ""               //包含姓名电话地址  {"name":"David","phone":"111233","home":"Bdbdbbd2"}
     var createTime		: String = moment().format("yyyy-MM-dd HH:mm:ss")
-    var payWay          : Int = 0                   //1:微信支付2:货到付款
-    var status          : Int = 0                   //0:处理中1:成功2:取消
+    var payWay          : Int = 0                   //1:微信支付2:货到付款3:支付成功
+    var status          : Int = 0                   //0:处理中1:成功2:取消（暂时没用，直接用payWay）
     
     
     override open func table() -> String { return "t_order" }
@@ -71,22 +71,7 @@ class OrderTable: MySQLStORM {
     
 }
 
-enum payWay: Int {
-    case huodaofk = 0
-    case paysuccess = 1
-    case paycancel = 2
-    
-    var description: String {
-        switch self {
- 	case .huodaofk:
-            return "货到付款"
-        case .paysuccess:
-            return "支付成功"
-        case .paycancel:
-            return "订单已取消"
-        }
-    }
-}
+
 /// 模型
 class OrderModel: JSONConvertibleObject {
     
@@ -116,12 +101,12 @@ class OrderModel: JSONConvertibleObject {
         remark = table.remark
         payWay = {
             switch table.payWay {
-            case 0:
-                return "订单已取消"
             case 1:
-                return "支付成功"
+                return "支付处理中"
             case 2:
                 return "货到付款"
+            case 3:
+                return "支付成功"
             default:
                 return ""
             }
@@ -203,5 +188,25 @@ class OrderTableOptor: DBBaseOperator {
         return m_orderList
     }
     
+    func updateOrderPayResult(trade_no: String, payWay: Int) throws {
+        
+        let order = OrderTable()
+        order.out_trade_no = trade_no
+        
+        do {
+            try order.find(["out_trade_no" : trade_no])
+            try order.update(cols: ["payWay"], params: [1], idName: "id", idValue: order.id)
+        }catch {
+            throw error
+        }
+        
+    }
+    
 }
+
+
+
+
+
+
 
