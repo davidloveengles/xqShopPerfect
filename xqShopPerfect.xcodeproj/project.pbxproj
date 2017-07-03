@@ -1597,23 +1597,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		231F40861F094C2600C3BE26 /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
-		23F4C1EA1F09131A0032BB2C /* 10zhiping.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 10zhiping.strings; sourceTree = "<group>"; };
-		23F4C1EB1F09131A0032BB2C /* 11xitiao.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 11xitiao.strings; sourceTree = "<group>"; };
-		23F4C1EC1F09131A0032BB2C /* 12jisheng.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 12jisheng.strings; sourceTree = "<group>"; };
-		23F4C1ED1F09131A0032BB2C /* 13riyong.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 13riyong.strings; sourceTree = "<group>"; };
-		23F4C1EE1F09131A0032BB2C /* 14tiaowei.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 14tiaowei.strings; sourceTree = "<group>"; };
-		23F4C1EF1F09131A0032BB2C /* 15luwei.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 15luwei.strings; sourceTree = "<group>"; };
-		23F4C1F01F09131A0032BB2C /* 1xiangyan.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 1xiangyan.strings; sourceTree = "<group>"; };
-		23F4C1F11F09131A0032BB2C /* 2binglang.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 2binglang.strings; sourceTree = "<group>"; };
-		23F4C1F21F09131A0032BB2C /* 3yingping.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 3yingping.strings; sourceTree = "<group>"; };
-		23F4C1F31F09131A0032BB2C /* 4jiulei.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 4jiulei.strings; sourceTree = "<group>"; };
-		23F4C1F41F09131A0032BB2C /* 5lingshi.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 5lingshi.strings; sourceTree = "<group>"; };
-		23F4C1F51F09131A0032BB2C /* 6tangguo.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 6tangguo.strings; sourceTree = "<group>"; };
-		23F4C1F61F09131A0032BB2C /* 7niunai.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 7niunai.strings; sourceTree = "<group>"; };
-		23F4C1F71F09131A0032BB2C /* 8fangbian.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 8fangbian.strings; sourceTree = "<group>"; };
-		23F4C1F81F09131A0032BB2C /* 9lingying.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = 9lingying.strings; sourceTree = "<group>"; };
-		23F4C1F91F09131A0032BB2C /* KindData.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = KindData.strings; sourceTree = "<group>"; };
 		OBJ_10 /* GlobalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalData.swift; sourceTree = "<group>"; };
 		OBJ_100 /* trees.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = trees.c; sourceTree = "<group>"; };
 		OBJ_101 /* uncompr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = uncompr.c; sourceTree = "<group>"; };
@@ -1723,7 +1706,6 @@
 		OBJ_207 /* bf_ecb.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bf_ecb.c; sourceTree = "<group>"; };
 		OBJ_208 /* bf_enc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bf_enc.c; sourceTree = "<group>"; };
 		OBJ_209 /* bf_lbuf.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bf_lbuf.c; sourceTree = "<group>"; };
-		OBJ_21 /* webroot */ = {isa = PBXFileReference; lastKnownFileType = folder; path = webroot; sourceTree = SOURCE_ROOT; };
 		OBJ_210 /* bf_nbio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bf_nbio.c; sourceTree = "<group>"; };
 		OBJ_211 /* bf_null.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bf_null.c; sourceTree = "<group>"; };
 		OBJ_212 /* bf_ofb64.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = bf_ofb64.c; sourceTree = "<group>"; };
@@ -2703,29 +2685,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		23F4C1E91F09131A0032BB2C /* foods */ = {
-			isa = PBXGroup;
-			children = (
-				23F4C1EA1F09131A0032BB2C /* 10zhiping.strings */,
-				23F4C1EB1F09131A0032BB2C /* 11xitiao.strings */,
-				23F4C1EC1F09131A0032BB2C /* 12jisheng.strings */,
-				23F4C1ED1F09131A0032BB2C /* 13riyong.strings */,
-				23F4C1EE1F09131A0032BB2C /* 14tiaowei.strings */,
-				23F4C1EF1F09131A0032BB2C /* 15luwei.strings */,
-				23F4C1F01F09131A0032BB2C /* 1xiangyan.strings */,
-				23F4C1F11F09131A0032BB2C /* 2binglang.strings */,
-				23F4C1F21F09131A0032BB2C /* 3yingping.strings */,
-				23F4C1F31F09131A0032BB2C /* 4jiulei.strings */,
-				23F4C1F41F09131A0032BB2C /* 5lingshi.strings */,
-				23F4C1F51F09131A0032BB2C /* 6tangguo.strings */,
-				23F4C1F61F09131A0032BB2C /* 7niunai.strings */,
-				23F4C1F71F09131A0032BB2C /* 8fangbian.strings */,
-				23F4C1F81F09131A0032BB2C /* 9lingying.strings */,
-				23F4C1F91F09131A0032BB2C /* KindData.strings */,
-			);
-			path = foods;
-			sourceTree = "<group>";
-		};
 		OBJ_103 /* include */ = {
 			isa = PBXGroup;
 			children = (
@@ -3658,7 +3617,6 @@
 				OBJ_6 /* Package.swift */,
 				OBJ_7 /* Sources */,
 				OBJ_20 /* Tests */,
-				OBJ_21 /* webroot */,
 				OBJ_22 /* Dependencies */,
 				OBJ_862 /* Products */,
 			);
@@ -3718,7 +3676,6 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				23F4C1E91F09131A0032BB2C /* foods */,
 				OBJ_8 /* DBBaseOperator.swift */,
 				OBJ_9 /* FoodTableOptor.swift */,
 				OBJ_10 /* GlobalData.swift */,
@@ -3731,7 +3688,6 @@
 				OBJ_17 /* ServerManager.swift */,
 				OBJ_18 /* StringDataParse.swift */,
 				OBJ_19 /* SubKindTableOptor.swift */,
-				231F40861F094C2600C3BE26 /* MyPlayground.playground */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;

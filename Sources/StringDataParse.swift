@@ -22,6 +22,7 @@ class StringDataParse {
                 return
         }
         
+        print("解析到文件KindData.strings")
         
         var kindTables = [KindTable]()
         for dic in kinds {
