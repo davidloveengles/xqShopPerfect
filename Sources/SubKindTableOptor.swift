@@ -17,6 +17,7 @@ import PerfectLib
 class SubKindTable: MySQLStORM {
     
     var id              : Int = 0
+    var sequence        : Int = 0
     var pid             : Int = 0
     var name            : String = ""
   
@@ -29,6 +30,11 @@ class SubKindTable: MySQLStORM {
             id = Int(this.data["id"] as? Int32 ?? 0)
         }else{
             id				= this.data["id"] as? Int		 ?? 0
+        }
+        if this.data["sequence"] is Int32 {
+            sequence = Int(this.data["sequence"] as? Int32 ?? 0)
+        }else{
+            sequence				= this.data["sequence"] as? Int		 ?? 0
         }
         name                = this.data["name"] as? String		 ?? ""
     }
@@ -50,6 +56,7 @@ class SubKindTable: MySQLStORM {
 class SubKindModel: JSONConvertibleObject {
     
     var id              : Int = 0
+    var sequence        : Int = 0
     var name            : String = ""
     
     var open            : Bool = false
@@ -66,6 +73,7 @@ class SubKindModel: JSONConvertibleObject {
     static let registerName = "KindModel"
     override func setJSONValues(_ values: [String : Any]) {
         self.id = getJSONValue(named: "id", from: values, defaultValue: 0)
+        self.sequence = getJSONValue(named: "sequence", from: values, defaultValue: 0)
         self.name = getJSONValue(named: "name", from: values, defaultValue: "")
         self.open = getJSONValue(named: "open", from: values, defaultValue: false)
         self.count = getJSONValue(named: "count", from: values, defaultValue: 0)
@@ -75,6 +83,7 @@ class SubKindModel: JSONConvertibleObject {
         return [
             JSONDecoding.objectIdentifierKey:FoodModel.registerName,
             "id":id,
+            "sequence":sequence,
             "name":name,
             "open":open,
             "count":count,
@@ -98,7 +107,7 @@ class SubKindTableOptor: DBBaseOperator {
         let subkind = SubKindTable()
         
         do {
-            try subkind.select(whereclause: "pid = ?", params: [pid], orderby: ["id"])
+            try subkind.select(whereclause: "pid = ?", params: [pid], orderby: ["sequence"])
         }catch {
             return nil
         }
@@ -123,7 +132,7 @@ class SubKindTableOptor: DBBaseOperator {
     func insertAData(_ subKind: SubKindTable) {
         
         do {
-            _ = try subKind.insert(cols: ["id", "pid", "name"], params: [subKind.id, subKind.pid, subKind.name])
+            _ = try subKind.insert(cols: ["id", "pid", "sequence", "name"], params: [subKind.id, subKind.pid, subKind.sequence, subKind.name])
         }catch {
             print("插入一条kind数据错误： \(error)")
         }

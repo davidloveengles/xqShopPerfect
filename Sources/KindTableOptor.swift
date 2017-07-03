@@ -17,7 +17,9 @@ import PerfectCrypto
 class KindTable: MySQLStORM {
     
     var id              : Int = 0
+    var sequence        : Int = 0
     var name            : String = ""
+    
 //    var open            : Bool = false
 //    var count           : Int = 0
 //    var subKinds        : [SubKindTable] = []
@@ -30,6 +32,11 @@ class KindTable: MySQLStORM {
             id = Int(this.data["id"] as? Int32 ?? 0)
         }else{
             id				= this.data["id"] as? Int		 ?? 0
+        }
+        if this.data["sequence"] is Int32 {
+            sequence = Int(this.data["sequence"] as? Int32 ?? 0)
+        }else{
+            sequence				= this.data["sequence"] as? Int		 ?? 0
         }
         name                = this.data["name"] as? String		 ?? ""
 //        if this.data["count"] is Int32 {
@@ -76,6 +83,7 @@ extension Array where Element == KindTable {
 class KindModel: JSONConvertibleObject {
     
     var id              : Int = 0
+    var sequence        : Int = 0
     var name            : String = ""
     
     var open            : Bool = false
@@ -92,6 +100,7 @@ class KindModel: JSONConvertibleObject {
     static let registerName = "KindModel"
     override func setJSONValues(_ values: [String : Any]) {
         self.id = getJSONValue(named: "id", from: values, defaultValue: 0)
+        self.sequence = getJSONValue(named: "sequence", from: values, defaultValue: 0)
         self.name = getJSONValue(named: "name", from: values, defaultValue: "")
         self.open = getJSONValue(named: "open", from: values, defaultValue: false)
         self.count = getJSONValue(named: "count", from: values, defaultValue: 0)
@@ -101,6 +110,7 @@ class KindModel: JSONConvertibleObject {
         return [
             JSONDecoding.objectIdentifierKey:FoodModel.registerName,
             "id":id,
+            "sequence":sequence,
             "name":name,
             "open":open,
             "count":count,
@@ -129,7 +139,7 @@ class KindTableOptor: DBBaseOperator {
         
         do {
 //            try kind.findAll()
-            try kind.select(whereclause: "", params: [], orderby: ["id"])
+            try kind.select(whereclause: "", params: [], orderby: ["sequence"])
         }catch {
             return nil
         }
@@ -153,7 +163,7 @@ class KindTableOptor: DBBaseOperator {
         
         for kind in list {
             do {
-                _ = try kind.insert(cols: ["id", "name"], params: [kind.id, kind.name])
+                _ = try kind.insert(cols: ["id", "sequence", "name"], params: [kind.id, kind.sequence, kind.name])
             }catch {
                 print("插入一条kind数据错误： \(error)")
             }

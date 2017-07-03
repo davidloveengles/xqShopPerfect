@@ -26,20 +26,22 @@ class StringDataParse {
         
         var kindTables = [KindTable]()
         for dic in kinds {
-            if let id = dic["id"] as? Int, let name = dic["name"] as? String {
+            if let id = dic["id"] as? Int, let sequence = dic["sequence"] as? Int, let name = dic["name"] as? String {
                 let kind = KindTable()
                 kind.id = id
+                kind.sequence = sequence
                 kind.name = name
                 kindTables.append(kind)
             }
             if let subWmProducts = dic["subWmProductTagVos"] as? [[String: Any]] {
                 for subkindDic in subWmProducts {
                     let subkind = SubKindTable()
-                    guard let id = subkindDic["id"] as? Int, let pid = subkindDic["parentId"] as? Int, let subname = subkindDic["name"] as? String else {
+                    guard let id = subkindDic["id"] as? Int, let pid = subkindDic["parentId"] as? Int, let sequ = subkindDic["sequence"] as? Int, let subname = subkindDic["name"] as? String else {
                         break
                     }
                     subkind.id = id
                     subkind.pid = pid
+                    subkind.sequence = sequ
                     subkind.name = subname
                     // 插入subkind数据
                     SubKindTableOptor.shared.insertAData(subkind)
