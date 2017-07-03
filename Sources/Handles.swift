@@ -321,9 +321,9 @@ extension Handels {
                     status = .SUCCESS
                     msg = "操作成功"
     
-                    // 给微信发送订单消息
+                    // 给微信发送订单消息(同一个form_id只能发送给一个人。。。)
                     _ = self.postTemplateMsg(order: order, isMaster: true)
-                    _ = self.postTemplateMsg(order: order, isMaster: false)
+//                    _ = self.postTemplateMsg(order: order, isMaster: false)
                     
                 }else {
                     msg = "操作失败"

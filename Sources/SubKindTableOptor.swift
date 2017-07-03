@@ -118,6 +118,16 @@ class SubKindTableOptor: DBBaseOperator {
         
         return m_subkindList
     }
+    
+    
+    func insertAData(_ subKind: SubKindTable) {
+        
+        do {
+            _ = try subKind.insert(cols: ["id", "pid", "name"], params: [subKind.id, subKind.pid, subKind.name])
+        }catch {
+            print("插入一条kind数据错误： \(error)")
+        }
+    }
 }
 
 

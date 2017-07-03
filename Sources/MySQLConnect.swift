@@ -10,6 +10,7 @@
 import PerfectLib
 import StORM
 import MySQLStORM
+import MySQL
 
 
 struct MySQLConnect {
@@ -22,9 +23,12 @@ struct MySQLConnect {
         #if os(Linux)
             MySQLConnector.database	= "shop_db"
         #else
-            MySQLConnector.database	= "shopdatabase1"
+            MySQLConnector.database	= "shop_db"
         #endif
         MySQLConnector.port		= 3306
+        
+        _ = MySQL().setOption(MySQLOpt.MYSQL_SET_CHARSET_NAME, "utf8mb4")
+        
         
         // 创建表
         _ = SubKindTableOptor.shared
@@ -38,6 +42,10 @@ struct MySQLConnect {
         JSONDecoding.registerJSONDecodable(name: SubKindModel.registerName, creator: { return SubKindModel() })
         JSONDecoding.registerJSONDecodable(name: FoodModel.registerName, creator: { return FoodModel() })
         JSONDecoding.registerJSONDecodable(name: OrderModel.registerName, creator: { return OrderModel() })
+        
+        
+        // 数据库插入所有数据
+        StringDataParse.parseStringFile("")
     }
     
 }

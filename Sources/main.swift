@@ -9,7 +9,6 @@ import PerfectMustache
 
 
 
-
 MySQLConnect.config()
 
 
@@ -22,6 +21,24 @@ MySQLConnect.config()
     ServerManager(host: host, port: 8888).startServer()
 #endif
 
+
+//print("newserver")
+//ServerManager(host: "127.0.0.1", port: 8880).startServer()
+//
+//do {
+//    print("newserver")
+//    var server = HTTPServer()
+//    server.serverName = "127.0.0.1"
+//    server.serverPort = 8181
+//    var routes = Routes()
+//    routes.add(method: .get, uri: "/**", handler: try PerfectHTTPServer.HTTPHandler.redirect(data: ["base":"http://www.baidu.com:80"]))
+//    server.addRoutes(routes)
+//    try server.start()
+//}catch {
+//    print(error)
+//}
+//
+//HTTPServer.launch(wait: <#T##Bool#>, [HTTPServer.Server])
 
 // 启动一个服务器处理静态页面
 //do {
@@ -39,8 +56,8 @@ MySQLConnect.config()
 // 214121370320445  zhangpangpang.cn
 // 214124401610445  www.zhangpangpang.cn
 
-let confData = [
-    "servers": [
+//let confData = [
+//    "servers": [
 //        [
 //            "name":host,
 //            "port":port1,
@@ -62,20 +79,20 @@ let confData = [
 //                "keyPath": "/home/aliyunhttps/214124401610445/214124401610445.key"
 //            ]
 //        ],
-        [
-            "name":"47.93.30.83",
-            "port":80,
-            "routes":[
-                ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.redirect,
-                 "base":"https://www.zhangpangpang.cn:\(443)"]
-            ]
-        ]
-    ]
-]
-
-do {
-    try HTTPServer.launch(configurationData: confData)
-} catch {
-    fatalError("\(error)")
-}
+//        [
+//            "name":host,
+//            "port":80,
+//            "routes":[
+//                ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.redirect,
+//                 "base":"www.baidu.com"]
+//            ]
+//        ]
+//    ]
+//]
+//
+//do {
+//    try HTTPServer.launch(configurationData: confData)
+//} catch {
+//    fatalError("\(error)")
+//}
 

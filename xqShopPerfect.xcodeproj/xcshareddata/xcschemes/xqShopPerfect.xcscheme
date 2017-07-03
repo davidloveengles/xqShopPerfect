@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_866"
+               BlueprintIdentifier = "OBJ_884"
                BuildableName = "PerfectLib.framework"
                BlueprintName = "PerfectLib"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -28,7 +28,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_882"
+               BlueprintIdentifier = "OBJ_900"
                BuildableName = "PerfectThread.framework"
                BlueprintName = "PerfectThread"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -42,7 +42,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_891"
+               BlueprintIdentifier = "OBJ_909"
                BuildableName = "COpenSSL.framework"
                BlueprintName = "COpenSSL"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -56,7 +56,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1579"
+               BlueprintIdentifier = "OBJ_1597"
                BuildableName = "PerfectCrypto.framework"
                BlueprintName = "PerfectCrypto"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -70,7 +70,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1598"
+               BlueprintIdentifier = "OBJ_1616"
                BuildableName = "PerfectNet.framework"
                BlueprintName = "PerfectNet"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -84,7 +84,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1619"
+               BlueprintIdentifier = "OBJ_1637"
                BuildableName = "PerfectHTTP.framework"
                BlueprintName = "PerfectHTTP"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -98,7 +98,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1644"
+               BlueprintIdentifier = "OBJ_1662"
                BuildableName = "CZlib.framework"
                BlueprintName = "CZlib"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -112,7 +112,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1678"
+               BlueprintIdentifier = "OBJ_1696"
                BuildableName = "PerfectHTTPServer.framework"
                BlueprintName = "PerfectHTTPServer"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -126,7 +126,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1707"
+               BlueprintIdentifier = "OBJ_1735"
                BuildableName = "CHTTPParser.framework"
                BlueprintName = "CHTTPParser"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -140,7 +140,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1728"
+               BlueprintIdentifier = "OBJ_1756"
                BuildableName = "MySQL.framework"
                BlueprintName = "MySQL"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -154,7 +154,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1735"
+               BlueprintIdentifier = "OBJ_1763"
                BuildableName = "PerfectMustache.framework"
                BlueprintName = "PerfectMustache"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -168,7 +168,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1754"
+               BlueprintIdentifier = "OBJ_1782"
                BuildableName = "SwiftMoment.framework"
                BlueprintName = "SwiftMoment"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -182,7 +182,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1766"
+               BlueprintIdentifier = "OBJ_1794"
                BuildableName = "PerfectCURL.framework"
                BlueprintName = "PerfectCURL"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -196,7 +196,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1789"
+               BlueprintIdentifier = "OBJ_1817"
                BuildableName = "PerfectLogger.framework"
                BlueprintName = "PerfectLogger"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -210,7 +210,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1813"
+               BlueprintIdentifier = "OBJ_1841"
                BuildableName = "SwiftRandom.framework"
                BlueprintName = "SwiftRandom"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -224,7 +224,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1822"
+               BlueprintIdentifier = "OBJ_1850"
                BuildableName = "PerfectRequestLogger.framework"
                BlueprintName = "PerfectRequestLogger"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -238,7 +238,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1855"
+               BlueprintIdentifier = "OBJ_1883"
                BuildableName = "StORM.framework"
                BlueprintName = "StORM"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -252,7 +252,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1874"
+               BlueprintIdentifier = "OBJ_1902"
                BuildableName = "MySQLStORM.framework"
                BlueprintName = "MySQLStORM"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -266,7 +266,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1912"
+               BlueprintIdentifier = "OBJ_1940"
                BuildableName = "SwiftString.framework"
                BlueprintName = "SwiftString"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -280,7 +280,21 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_1921"
+               BlueprintIdentifier = "OBJ_1949"
+               BuildableName = "PerfectXML.framework"
+               BlueprintName = "PerfectXML"
+               ReferencedContainer = "container:xqShopPerfect.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "OBJ_1957"
                BuildableName = "xqShopPerfect"
                BlueprintName = "xqShopPerfect"
                ReferencedContainer = "container:xqShopPerfect.xcodeproj">
@@ -311,7 +325,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_866"
+            BlueprintIdentifier = "OBJ_884"
             BuildableName = "PerfectLib.framework"
             BlueprintName = "PerfectLib"
             ReferencedContainer = "container:xqShopPerfect.xcodeproj">

@@ -10,7 +10,7 @@ import StORM
 import MySQLStORM
 import SwiftMoment
 import PerfectLib
-
+import PerfectCrypto
 
 
 
@@ -146,5 +146,17 @@ class KindTableOptor: DBBaseOperator {
         }
         
         return m_kindList
+    }
+    
+    
+    func insertAllData(_ list: [KindTable]) {
+        
+        for kind in list {
+            do {
+                _ = try kind.insert(cols: ["id", "name"], params: [kind.id, kind.name])
+            }catch {
+                print("插入一条kind数据错误： \(error)")
+            }
+        }
     }
 }

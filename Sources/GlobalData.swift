@@ -22,7 +22,7 @@ extension GlobalData {
     
     // 是否需要从新请求 access_token
     func availableAccessToken () -> Bool {
-        print("accessTokenDic:\(accessTokenDic)")
+        
         if let token = accessTokenDic,
             let _ = token["access_token"] as? String,
             let expires_in = token["expires_in"] as? Int,

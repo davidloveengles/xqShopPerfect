@@ -1,0 +1,144 @@
+/* 
+  FoodData.strings
+  xqShopPerfect
+
+  Created by David on 2017/6/30.
+  
+*/
+
+{
+    "data": [{
+        "id": 311413775,
+        "name": "香烟下单备注或拨打15502913142/85337695",
+        "tagId": 35384139,
+        "tagName": "\uD83D\uDEAC香烟火机\uD83D\uDD25",
+        "price": 0.0,
+        "wmProductSkuVos": [{
+            "id": 340323613,
+            "spec": "",
+            "description": "亦可通过微信公众号“嗨选便利速递”下单",
+            "skuCode": "",
+            "upcCode": "",
+            "locatorCode": "",
+            "price": 0.0,
+            "limitStock": 0,
+            "stock": -1,
+            "boxNum": 1,
+            "boxPrice": 0.0,
+            "weight": 0
+        }],
+        "wmProductLabelVos": [],
+        "wmProductSpuAttrVos": [],
+        "unit": "份",
+        "minOrderCount": 1,
+        "sellStatus": 0,
+        "description": "亦可通过微信公众号“嗨选便利速递”下单",
+        "monthSale": 1,
+        "stock": -1,
+        "wmProductPicVos": [{
+            "id": 491233695,
+            "picLargeUrl": "http://p0.meituan.net/wmproduct/1cf6e1ba5549a09960ee8fe56cb63066218248.jpg",
+            "picUrl": "http://p0.meituan.net/100.100.90/wmproduct/1cf6e1ba5549a09960ee8fe56cb63066218248.jpg"
+        }],
+        "discountPrice": -1.0,
+        "secondTagId": -1,
+        "secondTagName": "",
+        "level": 2,
+        "offSellType": -1,
+        "riskManaVo": {
+            "shortDescribe": "",
+            "longDescribe": "",
+            "recoveryTime": ""
+        }
+    }, {
+        "id": 311410607,
+        "name": "KKK防风打火机",
+        "tagId": 35384139,
+        "tagName": "\uD83D\uDEAC香烟火机\uD83D\uDD25",
+        "price": 3.0,
+        "wmProductSkuVos": [{
+            "id": 340320444,
+            "spec": "",
+            "description": "",
+            "skuCode": "",
+            "upcCode": "",
+            "locatorCode": "",
+            "price": 3.0,
+            "limitStock": 0,
+            "stock": -1,
+            "boxNum": 1,
+            "boxPrice": 0.0,
+            "weight": 0
+        }],
+        "wmProductLabelVos": [],
+        "wmProductSpuAttrVos": [],
+        "unit": "份",
+        "minOrderCount": 1,
+        "sellStatus": 0,
+        "description": "",
+        "monthSale": 0,
+        "stock": -1,
+        "wmProductPicVos": [{
+            "id": 487462994,
+            "picLargeUrl": "http://p0.meituan.net/wmproduct/eaf091af68be579c3359c4814883fc05918342.jpg",
+            "picUrl": "http://p0.meituan.net/100.100.90/wmproduct/eaf091af68be579c3359c4814883fc05918342.jpg"
+        }],
+        "discountPrice": -1.0,
+        "secondTagId": -1,
+        "secondTagName": "",
+        "level": 2,
+        "offSellType": -1,
+        "riskManaVo": {
+            "shortDescribe": "",
+            "longDescribe": "",
+            "recoveryTime": ""
+        }
+    }, {
+        "id": 311409823,
+        "name": "华宇打火机",
+        "tagId": 35384139,
+        "tagName": "\uD83D\uDEAC香烟火机\uD83D\uDD25",
+        "price": 1.0,
+        "wmProductSkuVos": [{
+            "id": 340319968,
+            "spec": "",
+            "description": "",
+            "skuCode": "",
+            "upcCode": "",
+            "locatorCode": "",
+            "price": 1.0,
+            "limitStock": 0,
+            "stock": -1,
+            "boxNum": 1,
+            "boxPrice": 0.0,
+            "weight": 0
+        }],
+        "wmProductLabelVos": [],
+        "wmProductSpuAttrVos": [],
+        "unit": "份",
+        "minOrderCount": 1,
+        "sellStatus": 0,
+        "description": "",
+        "monthSale": 0,
+        "stock": -1,
+        "wmProductPicVos": [{
+            "id": 487463393,
+            "picLargeUrl": "http://p1.meituan.net/wmproduct/ea66986439ecf714b356f75120c7a0e3928991.jpg",
+            "picUrl": "http://p1.meituan.net/100.100.90/wmproduct/ea66986439ecf714b356f75120c7a0e3928991.jpg"
+        }],
+        "discountPrice": -1.0,
+        "secondTagId": -1,
+        "secondTagName": "",
+        "level": 2,
+        "offSellType": -1,
+        "riskManaVo": {
+            "shortDescribe": "",
+            "longDescribe": "",
+            "recoveryTime": ""
+        }
+    }],
+    "code": 0,
+    "msg": "Success"
+}
+
+
