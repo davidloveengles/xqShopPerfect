@@ -1,11 +1,6 @@
-/* 
-  FoodData.strings
-  xqShopPerfect
 
-  Created by David on 2017/6/30.
-  
-*/
 
+[
 {
     "data": [{
         "id": 311413775,
@@ -140,5 +135,5 @@
     "code": 0,
     "msg": "Success"
 }
-
+]
 

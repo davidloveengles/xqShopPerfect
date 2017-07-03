@@ -10,14 +10,14 @@ import PerfectLib
 
 class StringDataParse {
     
-    static func parseStringFile(_ fileName: String) {
+    static func parseKindStringFile(_ fileName: String) {
         
-        let thisFile = File("./foods/KindData.strings")
+        let thisFile = File("./foods/\(fileName)")
         
         
         guard let contents = try? thisFile.readString(),
-            let result = try? contents.jsonDecode() as? [String: Any],
-        let kinds = result?["data"] as? [[String: Any]]
+            let result = (try? contents.jsonDecode()) as? [String: Any],
+        let kinds = result["data"] as? [[String: Any]]
             else{
                 return
         }
@@ -26,7 +26,10 @@ class StringDataParse {
         
         var kindTables = [KindTable]()
         for dic in kinds {
-            if let id = dic["id"] as? Int, let sequence = dic["sequence"] as? Int, let name = dic["name"] as? String {
+            if let id = dic["id"] as? Int,
+                let sequence = dic["sequence"] as? Int,
+                let name = dic["name"] as? String {
+                
                 let kind = KindTable()
                 kind.id = id
                 kind.sequence = sequence
@@ -36,7 +39,10 @@ class StringDataParse {
             if let subWmProducts = dic["subWmProductTagVos"] as? [[String: Any]] {
                 for subkindDic in subWmProducts {
                     let subkind = SubKindTable()
-                    guard let id = subkindDic["id"] as? Int, let pid = subkindDic["parentId"] as? Int, let sequ = subkindDic["sequence"] as? Int, let subname = subkindDic["name"] as? String else {
+                    guard let id = subkindDic["id"] as? Int,
+                        let pid = subkindDic["parentId"] as? Int,
+                        let sequ = subkindDic["sequence"] as? Int,
+                        let subname = subkindDic["name"] as? String else {
                         break
                     }
                     subkind.id = id
@@ -53,4 +59,57 @@ class StringDataParse {
         // 插入所有kind数据
         KindTableOptor.shared.insertAllData(kindTables)
     }
+    
+    
+    static func parseFoodsStringFile(_ fileName: String) {
+        
+        let thisFile = File("./foods/\(fileName)")
+        
+        
+        guard let contents = try? thisFile.readString(),
+            let list = (try? contents.jsonDecode()) as? [[String: Any]]
+            else{
+                return
+        }
+        
+        print("解析到文件\(fileName)")
+        
+        for dic in list {
+            
+            guard let data = dic["data"] as? [[String: Any]] else {
+                break
+            }
+            for foodDic in data {
+                guard let id = foodDic["id"] as? Int,
+                    let pid = foodDic["secondTagId"] as? Int,
+                    let ppid = foodDic["tagId"] as? Int,
+                    let name = foodDic["name"] as? String,
+                    let price = foodDic["price"] as? String else{
+                    break
+                }
+                
+                let food = FoodTable()
+                food.id = id
+                food.pid = pid
+                food.ppid = ppid
+                food.name = name
+                food.price = price
+                if let wmProductPicVos = foodDic["wmProductPicVos"] as? [[String: Any]],
+                   let img = wmProductPicVos.first?["picUrl"] as? String,
+                   let largerImg = wmProductPicVos.first?["picLargeUrl"] as? String {
+                    food.img = img
+                    food.largerImg = largerImg
+                }
+                
+                // 插入food数据库
+                FoodTableOptor.shared.insertAData(food)
+            }
+        }
+
+    }
 }
+
+
+
+
+

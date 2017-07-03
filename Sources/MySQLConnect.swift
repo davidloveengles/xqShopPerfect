@@ -27,6 +27,7 @@ struct MySQLConnect {
         #endif
         MySQLConnector.port		= 3306
         
+        // 编码
         _ = MySQL().setOption(MySQLOpt.MYSQL_SET_CHARSET_NAME, "utf8mb4")
         
         
@@ -45,8 +46,26 @@ struct MySQLConnect {
         
         
         // 数据库插入所有数据
-        StringDataParse.parseStringFile("")
+        StringDataParse.parseKindStringFile("KindData.strings")
+        StringDataParse.parseFoodsStringFile("1xiangyan.strings")
+//        StringDataParse.parseFoodsStringFile("2binglang.strings")
+//        StringDataParse.parseFoodsStringFile("3yingping.strings")
+//        StringDataParse.parseFoodsStringFile("4jiulei.strings")
+//        StringDataParse.parseFoodsStringFile("5lingshi.strings")
+//        StringDataParse.parseFoodsStringFile("6tangguo.strings")
+//        StringDataParse.parseFoodsStringFile("7niunai.strings")
+//        StringDataParse.parseFoodsStringFile("8fangbian.strings")
+//        StringDataParse.parseFoodsStringFile("9lingying.strings")
+//        StringDataParse.parseFoodsStringFile("10zhiping.strings")
+//        StringDataParse.parseFoodsStringFile("11xitiao.strings")
+//        StringDataParse.parseFoodsStringFile("12jisheng.strings")
+//        StringDataParse.parseFoodsStringFile("13riyong.strings")
+//        StringDataParse.parseFoodsStringFile("14tiaowei.strings")
+//        StringDataParse.parseFoodsStringFile("15luwei.strings")
     }
     
 }
+
+
+
 

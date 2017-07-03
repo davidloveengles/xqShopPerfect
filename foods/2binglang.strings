@@ -1,0 +1,94 @@
+
+[
+{
+    "data": [{
+        "id": 319255181,
+        "name": "口味王 青果食用槟榔 24g/袋",
+        "tagId": 36299192,
+        "tagName": "\uD83D\uDE0D槟榔\uD83E\uDD13",
+        "price": 10.0,
+        "wmProductSkuVos": [{
+            "id": 348861597,
+            "spec": "24g",
+            "description": "",
+            "skuCode": "",
+            "upcCode": "6931273210725",
+            "locatorCode": "",
+            "price": 10.0,
+            "limitStock": 0,
+            "stock": -1,
+            "boxNum": 0,
+            "boxPrice": 0.0,
+            "weight": 24
+        }],
+        "wmProductLabelVos": [],
+        "wmProductSpuAttrVos": [],
+        "unit": "袋",
+        "minOrderCount": 0,
+        "sellStatus": 0,
+        "description": "",
+        "monthSale": 0,
+        "stock": -1,
+        "wmProductPicVos": [{
+            "id": 494275483,
+            "picLargeUrl": "http://p1.meituan.net/shangchao/715ca3b6c5bf43c1974742f3e8a614e1.jpg",
+            "picUrl": "http://p1.meituan.net/100.100.90/shangchao/715ca3b6c5bf43c1974742f3e8a614e1.jpg"
+        }],
+        "discountPrice": -1.0,
+        "secondTagId": -1,
+        "secondTagName": "",
+        "level": 2,
+        "offSellType": -1,
+        "riskManaVo": {
+            "shortDescribe": "",
+            "longDescribe": "",
+            "recoveryTime": ""
+        }
+    }, {
+        "id": 319258071,
+        "name": "伍子醉 槟榔 25g/袋",
+        "tagId": 36299192,
+        "tagName": "\uD83D\uDE0D槟榔\uD83E\uDD13",
+        "price": 6.0,
+        "wmProductSkuVos": [{
+            "id": 348863031,
+            "spec": "25g",
+            "description": "",
+            "skuCode": "",
+            "upcCode": "6933125655555",
+            "locatorCode": "",
+            "price": 6.0,
+            "limitStock": 0,
+            "stock": -1,
+            "boxNum": 0,
+            "boxPrice": 0.0,
+            "weight": 25
+        }],
+        "wmProductLabelVos": [],
+        "wmProductSpuAttrVos": [],
+        "unit": "袋",
+        "minOrderCount": 0,
+        "sellStatus": 0,
+        "description": "",
+        "monthSale": 0,
+        "stock": -1,
+        "wmProductPicVos": [{
+            "id": 494275964,
+            "picLargeUrl": "http://p1.meituan.net/xianfu/bf2372ce793f174cf3e99d700cb824d147104.jpg",
+            "picUrl": "http://p1.meituan.net/100.100.90/xianfu/bf2372ce793f174cf3e99d700cb824d147104.jpg"
+        }],
+        "discountPrice": -1.0,
+        "secondTagId": -1,
+        "secondTagName": "",
+        "level": 2,
+        "offSellType": -1,
+        "riskManaVo": {
+            "shortDescribe": "",
+            "longDescribe": "",
+            "recoveryTime": ""
+        }
+    }],
+    "code": 0,
+    "msg": "Success"
+}
+]

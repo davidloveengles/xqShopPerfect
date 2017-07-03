@@ -19,6 +19,7 @@ class FoodTable: MySQLStORM {
     var ppid            : Int = 0
     var name            : String = ""
     var img             : String = ""
+    var largerImg       : String = ""
     var price           : String = ""
     var createTime		: String = moment().format("yyyy-MM-dd HH:mm:ss")
     
@@ -43,6 +44,7 @@ class FoodTable: MySQLStORM {
         }
         name                = this.data["name"] as? String		 ?? ""
         img                 = this.data["img"] as? String		 ?? ""
+        largerImg           = this.data["img"] as? String		 ?? ""
         price               = this.data["price"] as? String		 ?? ""
         createTime          = this.data["createTime"] as? String     ?? ""
     }
@@ -65,6 +67,7 @@ class FoodModel: JSONConvertibleObject {
     var id              : Int = 0
     var name            : String = ""
     var img             : String = ""
+    var largerImg       : String = ""
     var price           : String = ""
     
     var count           : Int = 0
@@ -83,6 +86,7 @@ class FoodModel: JSONConvertibleObject {
         self.id = getJSONValue(named: "id", from: values, defaultValue: 0)
         self.name = getJSONValue(named: "name", from: values, defaultValue: "")
         self.img = getJSONValue(named: "img", from: values, defaultValue: "")
+        self.largerImg = getJSONValue(named: "largerImg", from: values, defaultValue: "")
         self.price = getJSONValue(named: "price", from: values, defaultValue: "")
         self.count = getJSONValue(named: "count", from: values, defaultValue: 0)
     }
@@ -92,6 +96,7 @@ class FoodModel: JSONConvertibleObject {
             "id":id,
             "name":name,
             "img":img,
+            "largerImg":largerImg,
             "price":price,
             "count":count,
         ]
@@ -126,6 +131,16 @@ class FoodTableOptor: DBBaseOperator {
         }
         
         return m_foodList
+    }
+    
+    
+    func insertAData(_ food: FoodTable) {
+        
+        do {
+            _ = try food.insert(cols: ["id", "pid", "ppid", "name", "price", "img", "largerImg"], params: [food.id, food.pid, food.ppid,food.name, food.price, food.img, food.largerImg])
+        }catch {
+            print("插入一条food数据错误： \(error)")
+        }
     }
     
 }
