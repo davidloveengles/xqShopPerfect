@@ -84,7 +84,7 @@ class StringDataParse {
                     let pid = foodDic["secondTagId"] as? Int,
                     let ppid = foodDic["tagId"] as? Int,
                     let name = foodDic["name"] as? String,
-                    let price = foodDic["price"] as? String else{
+                    let price = foodDic["price"] as? Double else{
                     break
                 }
                 
@@ -93,7 +93,7 @@ class StringDataParse {
                 food.pid = pid
                 food.ppid = ppid
                 food.name = name
-                food.price = price
+                food.price = price.description
                 if let wmProductPicVos = foodDic["wmProductPicVos"] as? [[String: Any]],
                    let img = wmProductPicVos.first?["picUrl"] as? String,
                    let largerImg = wmProductPicVos.first?["picLargeUrl"] as? String {
