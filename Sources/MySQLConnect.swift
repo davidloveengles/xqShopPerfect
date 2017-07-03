@@ -43,7 +43,7 @@ struct MySQLConnect {
         JSONDecoding.registerJSONDecodable(name: SubKindModel.registerName, creator: { return SubKindModel() })
         JSONDecoding.registerJSONDecodable(name: FoodModel.registerName, creator: { return FoodModel() })
         JSONDecoding.registerJSONDecodable(name: OrderModel.registerName, creator: { return OrderModel() })
-        
+    
         
         // 数据库插入所有数据
         StringDataParse.parseKindStringFile("KindData.strings")

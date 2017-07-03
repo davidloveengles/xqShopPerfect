@@ -12,6 +12,7 @@ import PerfectCURL
 import cURL
 import SwiftString
 import PerfectHTTP
+import PerfectCrypto
 
 class Utility {}
 
@@ -114,3 +115,59 @@ extension Utility {
 		}
 	}
 }
+
+
+extension Utility {
+    
+    static func downloadImg(urlStr: String, success: @escaping (String) -> ()) {
+        
+        let realm = "meituan.net/"
+        guard let range = urlStr.range(of: realm) else {
+            print("图片域名变化错误 old: \(realm), newUrl: \(urlStr)")
+            return
+        }
+        guard let imgUrl = URL(string: urlStr) else{
+            print("\(urlStr) 非url格式")
+            return
+        }
+        
+        let rightUrl = urlStr.substring(from: range.upperBound)
+        
+        // base64
+        guard let bytes = rightUrl.encode(.base64), let base64RightUrl = String(validatingUTF8: bytes) else{
+            print("base64 error")
+            return
+        }
+        
+        let newfilePath = "./webroot/" + base64RightUrl
+        
+        if File(newfilePath).exists {
+            return
+        }
+        
+        
+        // 下载
+        URLSession.shared.downloadTask(with: imgUrl) { (url, response, error) in
+            
+            if let tempUrl = url {
+                
+                let thisFile = File(tempUrl.path)
+            
+                if let _ = try? thisFile.copyTo(path: newfilePath) {
+                    success(base64RightUrl)
+                }
+                
+                
+            }else{
+                print("下载新图片失败：\(error)")
+            }
+            
+        }.resume()
+        
+    }
+}
+
+
+
+
+
