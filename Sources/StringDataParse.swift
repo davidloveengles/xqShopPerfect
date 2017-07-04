@@ -98,16 +98,10 @@ class StringDataParse {
                    let img = wmProductPicVos.first?["picUrl"] as? String,
                    let largerImg = wmProductPicVos.first?["picLargeUrl"] as? String {
                     
-                    Utility.downloadImg(urlStr: img) { (imgName) in
-                        
-                        food.img = imgName
-//                        food.largerImg = largerImg
-                        // 插入food数据库
-                        FoodTableOptor.shared.insertAData(food)
-                    }
-                    
+                    food.img = Utility.downloadImg(urlStr: img)
                 }
-                
+                // 插入food数据库
+                FoodTableOptor.shared.insertAData(food)
                 
             }
         }

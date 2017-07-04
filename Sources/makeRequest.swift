@@ -121,16 +121,12 @@ extension Utility {
 
 extension Utility {
     
-    static func downloadImg(urlStr: String, success: @escaping (String) -> ()) {
+    static func downloadImg(urlStr: String) -> String {
         
         let realm = "meituan.net/"
         guard let range = urlStr.range(of: realm) else {
             print("图片域名变化错误 old: \(realm), newUrl: \(urlStr)")
-            return
-        }
-        guard let imgUrl = URL(string: urlStr) else{
-            print("\(urlStr) 非url格式")
-            return
+            return ""
         }
         
         let rightUrl = urlStr.substring(from: range.upperBound)
@@ -138,57 +134,53 @@ extension Utility {
         // base64
         guard let bytes = rightUrl.encode(.base64), let base64RightUrl = String(validatingUTF8: bytes) else{
             print("base64 error")
-            return
+            return ""
         }
         
         let newfilePath = "./webroot/" + base64RightUrl
         
-        if File(newfilePath).exists {
-            success(base64RightUrl)
-            return
+        if !File(newfilePath).exists {
+            
+            makeDownloadImg(urlStr) { (bodyBytes) in
+                let out = OutputStream(toFileAtPath: newfilePath, append: false)
+                out?.open()
+                out?.write(bodyBytes, maxLength: bodyBytes.count)
+                out?.close()
+            }
         }
         
+        return base64RightUrl
         
         // 下载 linux上不可用
-//        URLSession.shared.downloadTask(with: imgUrl) { (url, response, error) in
-//            
-//            if let tempUrl = url {
-//                
-//                let thisFile = File(tempUrl.path)
-//            
-//                if let _ = try? thisFile.copyTo(path: newfilePath) {
-//                    success(base64RightUrl)
-//                }
-//                
-//                
-//            }else{
-//                print("下载新图片失败：\(error)")
-//            }
-//            
-//        }.resume()
+        //        URLSession.shared.downloadTask(with: imgUrl) { (url, response, error) in
+        //
+        //            if let tempUrl = url {
+        //
+        //                let thisFile = File(tempUrl.path)
+        //
+        //                if let _ = try? thisFile.copyTo(path: newfilePath) {
+        //                    success(base64RightUrl)
+        //                }
+        //
+        //
+        //            }else{
+        //                print("下载新图片失败：\(error)")
+        //            }
+        //
+        //        }.resume()
         
         // 同步方法，测试有阻塞
-//        if let bodyIn = makeDownloadImg(urlStr) {
-//            
-//            let out = OutputStream(toFileAtPath: newfilePath, append: false)
-//            out?.open()
-//            out?.write(bodyIn, maxLength: bodyIn.count)
-//            out?.close()
-//            success(base64RightUrl)
-//        }
-        
-        makeDownloadImg(urlStr) { (bodyBytes) in
-            let out = OutputStream(toFileAtPath: newfilePath, append: false)
-            out?.open()
-            out?.write(bodyBytes, maxLength: bodyBytes.count)
-            out?.close()
-//            DispatchQueue.main.async(execute: {
-                success(base64RightUrl)
-//            })
-        }
+        //        if let bodyIn = makeDownloadImg(urlStr) {
+        //
+        //            let out = OutputStream(toFileAtPath: newfilePath, append: false)
+        //            out?.open()
+        //            out?.write(bodyIn, maxLength: bodyIn.count)
+        //            out?.close()
+        //            success(base64RightUrl)
+        //        }
     }
     
-    static func makeDownloadImg(_ url: String, success: @escaping ([UInt8]) -> ()) {
+    fileprivate static func makeDownloadImg(_ url: String, success: @escaping ([UInt8]) -> ()) {
         
         CURLRequest(url).perform { confirmation in
             do {
