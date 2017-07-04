@@ -166,13 +166,19 @@ extension Utility {
 //            
 //        }.resume()
         
-        makeDownloadImg(imgUrl.path)
-        success(base64RightUrl)
+        if let bodyIn = makeDownloadImg(imgUrl.path) {
+            
+            let out = OutputStream(toFileAtPath: newfilePath, append: false)
+            out?.open()
+            out?.write(bodyIn, maxLength: bodyIn.count)
+            out?.close()
+            success(base64RightUrl)
+        }
     }
     
     
     
-    static func makeDownloadImg(_ url: String)  {
+    static func makeDownloadImg(_ url: String) -> [UInt8]? {
         
         let curlObject = CURL(url: url)
         curlObject.setOption(CURLOPT_HTTPHEADER, s: "Cache-Control: no-cache")
@@ -208,10 +214,11 @@ extension Utility {
         let _ = perf.1
         
         
-        let out = OutputStream(toFileAtPath: "./webroot/hehedd.jpg", append: false)
-        out?.open()
-        out?.write(bodyIn, maxLength: bodyIn.count)
-        out?.close()
+        if bodyIn.count <= 0 {
+            print("下载图片失败")
+            return nil
+        }
+        return bodyIn
     }
 }
 
