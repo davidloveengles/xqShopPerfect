@@ -144,6 +144,7 @@ extension Utility {
         let newfilePath = "./webroot/" + base64RightUrl
         
         if File(newfilePath).exists {
+            success(base64RightUrl)
             return
         }
         
@@ -181,7 +182,9 @@ extension Utility {
             out?.open()
             out?.write(bodyBytes, maxLength: bodyBytes.count)
             out?.close()
-            success(base64RightUrl)
+            DispatchQueue.main.async(execute: {
+                success(base64RightUrl)
+            })
         }
     }
     
