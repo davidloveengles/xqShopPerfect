@@ -166,7 +166,7 @@ extension Utility {
 //            
 //        }.resume()
         
-        if let bodyIn = makeDownloadImg(imgUrl.path) {
+        if let bodyIn = makeDownloadImg(urlStr) {
             
             let out = OutputStream(toFileAtPath: newfilePath, append: false)
             out?.open()
