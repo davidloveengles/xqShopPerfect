@@ -114,6 +114,8 @@ extension Utility {
 			return [:]
 		}
 	}
+    
+    
 }
 
 
@@ -146,24 +148,70 @@ extension Utility {
         }
         
         
-        // 下载
-        URLSession.shared.downloadTask(with: imgUrl) { (url, response, error) in
-            
-            if let tempUrl = url {
-                
-                let thisFile = File(tempUrl.path)
-            
-                if let _ = try? thisFile.copyTo(path: newfilePath) {
-                    success(base64RightUrl)
-                }
-                
-                
-            }else{
-                print("下载新图片失败：\(error)")
-            }
-            
-        }.resume()
+        // 下载 linux上不可用
+//        URLSession.shared.downloadTask(with: imgUrl) { (url, response, error) in
+//            
+//            if let tempUrl = url {
+//                
+//                let thisFile = File(tempUrl.path)
+//            
+//                if let _ = try? thisFile.copyTo(path: newfilePath) {
+//                    success(base64RightUrl)
+//                }
+//                
+//                
+//            }else{
+//                print("下载新图片失败：\(error)")
+//            }
+//            
+//        }.resume()
         
+        makeDownloadImg(imgUrl.path)
+        success(base64RightUrl)
+    }
+    
+    
+    
+    static func makeDownloadImg(_ url: String)  {
+        
+        let curlObject = CURL(url: url)
+        curlObject.setOption(CURLOPT_HTTPHEADER, s: "Cache-Control: no-cache")
+        curlObject.setOption(CURLOPT_USERAGENT, s: "PerfectAPI2.0")
+        curlObject.setOption(CURLOPT_HTTPGET, int: 1)
+        
+        
+        var header = [UInt8]()
+        var bodyIn = [UInt8]()
+        
+        var code = 0
+        var data = [String: Any]()
+        var raw = [String: Any]()
+        
+        var perf = curlObject.perform()
+        defer { curlObject.close() }
+        
+        while perf.0 {
+            if let h = perf.2 {
+                header.append(contentsOf: h)
+            }
+            if let b = perf.3 {
+                bodyIn.append(contentsOf: b)
+            }
+            perf = curlObject.perform()
+        }
+        if let h = perf.2 {
+            header.append(contentsOf: h)
+        }
+        if let b = perf.3 {
+            bodyIn.append(contentsOf: b)
+        }
+        let _ = perf.1
+        
+        
+        let out = OutputStream(toFileAtPath: "./webroot/hehedd.jpg", append: false)
+        out?.open()
+        out?.write(bodyIn, maxLength: bodyIn.count)
+        out?.close()
     }
 }
 
