@@ -182,9 +182,9 @@ extension Utility {
             out?.open()
             out?.write(bodyBytes, maxLength: bodyBytes.count)
             out?.close()
-            DispatchQueue.main.async(execute: {
+//            DispatchQueue.main.async(execute: {
                 success(base64RightUrl)
-            })
+//            })
         }
     }
     
