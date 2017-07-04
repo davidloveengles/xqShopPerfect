@@ -215,7 +215,7 @@ extension Utility {
         
         
         if bodyIn.count <= 0 {
-            print("下载图片失败")
+            print("下载图片失败: \(url)")
             return nil
         }
         return bodyIn
