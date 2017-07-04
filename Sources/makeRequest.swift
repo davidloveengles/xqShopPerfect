@@ -166,60 +166,82 @@ extension Utility {
 //            
 //        }.resume()
         
-        if let bodyIn = makeDownloadImg(urlStr) {
-            
+        // 同步方法，测试有阻塞
+//        if let bodyIn = makeDownloadImg(urlStr) {
+//            
+//            let out = OutputStream(toFileAtPath: newfilePath, append: false)
+//            out?.open()
+//            out?.write(bodyIn, maxLength: bodyIn.count)
+//            out?.close()
+//            success(base64RightUrl)
+//        }
+        
+        makeDownloadImg(urlStr) { (bodyBytes) in
             let out = OutputStream(toFileAtPath: newfilePath, append: false)
             out?.open()
-            out?.write(bodyIn, maxLength: bodyIn.count)
+            out?.write(bodyBytes, maxLength: bodyBytes.count)
             out?.close()
             success(base64RightUrl)
         }
     }
     
-    
-    
-    static func makeDownloadImg(_ url: String) -> [UInt8]? {
+    static func makeDownloadImg(_ url: String, success: @escaping ([UInt8]) -> ()) {
         
-        let curlObject = CURL(url: url)
-        curlObject.setOption(CURLOPT_HTTPHEADER, s: "Cache-Control: no-cache")
-        curlObject.setOption(CURLOPT_USERAGENT, s: "PerfectAPI2.0")
-        curlObject.setOption(CURLOPT_HTTPGET, int: 1)
-        
-        
-        var header = [UInt8]()
-        var bodyIn = [UInt8]()
-        
-        var code = 0
-        var data = [String: Any]()
-        var raw = [String: Any]()
-        
-        var perf = curlObject.perform()
-        defer { curlObject.close() }
-        
-        while perf.0 {
-            if let h = perf.2 {
-                header.append(contentsOf: h)
+        CURLRequest(url).perform { confirmation in
+            do {
+                let response = try confirmation()
+                let body = response.bodyBytes
+                success(body)
+            } catch let error as CURLResponse.Error {
+                print("下载图片出错，响应代码为： \(error.response.responseCode)")
+            } catch {
+                print("下载图片错误： \(error)")
             }
-            if let b = perf.3 {
-                bodyIn.append(contentsOf: b)
-            }
-            perf = curlObject.perform()
         }
-        if let h = perf.2 {
-            header.append(contentsOf: h)
-        }
-        if let b = perf.3 {
-            bodyIn.append(contentsOf: b)
-        }
-        let _ = perf.1
-        
-        
-        if bodyIn.count <= 0 {
-            print("下载图片失败: \(url)")
-            return nil
-        }
-        return bodyIn
     }
+    
+//    static func makeDownloadImg2(_ url: String) -> [UInt8]? {
+//        
+//        let curlObject = CURL(url: url)
+//        curlObject.setOption(CURLOPT_HTTPHEADER, s: "Cache-Control: no-cache")
+//        curlObject.setOption(CURLOPT_USERAGENT, s: "PerfectAPI2.0")
+//        curlObject.setOption(CURLOPT_HTTPGET, int: 1)
+//        
+//        
+//        var header = [UInt8]()
+//        var bodyIn = [UInt8]()
+//        
+//        var code = 0
+//        var data = [String: Any]()
+//        var raw = [String: Any]()
+//        
+//        var perf = curlObject.perform()
+//        defer { curlObject.close() }
+//        
+//        while perf.0 {
+//            if let h = perf.2 {
+//                header.append(contentsOf: h)
+//            }
+//            if let b = perf.3 {
+//                bodyIn.append(contentsOf: b)
+//            }
+//            perf = curlObject.perform()
+//        }
+//        if let h = perf.2 {
+//            header.append(contentsOf: h)
+//        }
+//        if let b = perf.3 {
+//            bodyIn.append(contentsOf: b)
+//        }
+//        let _ = perf.1
+//        
+//        
+//        if bodyIn.count <= 0 {
+//            print("下载图片失败: \(url)")
+//            return nil
+//        }
+//        return bodyIn
+//    }
 }
 
 

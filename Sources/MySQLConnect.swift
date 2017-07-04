@@ -11,6 +11,7 @@ import PerfectLib
 import StORM
 import MySQLStORM
 import MySQL
+import PerfectCURL
 
 
 struct MySQLConnect {
@@ -44,6 +45,8 @@ struct MySQLConnect {
         JSONDecoding.registerJSONDecodable(name: FoodModel.registerName, creator: { return FoodModel() })
         JSONDecoding.registerJSONDecodable(name: OrderModel.registerName, creator: { return OrderModel() })
     
+        
+      
         
         // 数据库插入所有数据
         StringDataParse.parseKindStringFile("KindData.strings")
