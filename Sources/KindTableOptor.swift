@@ -89,9 +89,16 @@ class KindModel: JSONConvertibleObject {
     var open            : Bool = false
     var count           : Int = 0
     var subKinds        : [SubKindModel] = []
+    var nosub           : Bool  {
+        if self.subKinds.count > 0, self.subKinds.first?.sequence == -100 {
+            return true
+        }
+        return false
+    }
     
     override init() {}
     init(table: KindTable) {
+        super.init()
         id = table.id
         name = table.name
         sequence = table.sequence
@@ -104,6 +111,7 @@ class KindModel: JSONConvertibleObject {
         self.sequence = getJSONValue(named: "sequence", from: values, defaultValue: 0)
         self.name = getJSONValue(named: "name", from: values, defaultValue: "")
         self.open = getJSONValue(named: "open", from: values, defaultValue: false)
+//        self.nosub = getJSONValue(named: "nosub", from: values, defaultValue: false)
         self.count = getJSONValue(named: "count", from: values, defaultValue: 0)
         self.subKinds = getJSONValue(named: "subKinds", from: values, defaultValue: [])
     }
@@ -114,6 +122,7 @@ class KindModel: JSONConvertibleObject {
             "sequence":sequence,
             "name":name,
             "open":open,
+            "nosub":nosub,
             "count":count,
             "subKinds":subKinds
         ]
