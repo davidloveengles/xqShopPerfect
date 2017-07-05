@@ -79,6 +79,7 @@ class FoodModel: JSONConvertibleObject {
         id = table.id
         name = table.name
         img = table.img
+        largerImg = table.largerImg
         price = table.price
     }
     

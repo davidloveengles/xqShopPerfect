@@ -17,8 +17,8 @@ import PerfectLib
 class SubKindTable: MySQLStORM {
     
     var id              : Int = 0
-    var sequence        : Int = 0   //-100设置成表示改模型不是存在的subkind
     var pid             : Int = 0
+    var sequence        : Int = 0   //-100设置成表示改模型不是存在的subkind
     var name            : String = ""
   
     
@@ -56,6 +56,7 @@ class SubKindTable: MySQLStORM {
 class SubKindModel: JSONConvertibleObject {
     
     var id              : Int = 0
+    var pid             : Int = 0
     var sequence        : Int = 0
     var name            : String = ""
     
@@ -66,13 +67,16 @@ class SubKindModel: JSONConvertibleObject {
     override init() {}
     init(table: SubKindTable) {
         id = table.id
+        pid = table.pid
         name = table.name
+        sequence = table.sequence
     }
     
     /// override
     static let registerName = "KindModel"
     override func setJSONValues(_ values: [String : Any]) {
         self.id = getJSONValue(named: "id", from: values, defaultValue: 0)
+        self.pid = getJSONValue(named: "pid", from: values, defaultValue: 0)
         self.sequence = getJSONValue(named: "sequence", from: values, defaultValue: 0)
         self.name = getJSONValue(named: "name", from: values, defaultValue: "")
         self.open = getJSONValue(named: "open", from: values, defaultValue: false)

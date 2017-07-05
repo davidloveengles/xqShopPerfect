@@ -36,7 +36,7 @@ class KindTable: MySQLStORM {
         if this.data["sequence"] is Int32 {
             sequence = Int(this.data["sequence"] as? Int32 ?? 0)
         }else{
-            sequence				= this.data["sequence"] as? Int		 ?? 0
+            sequence		= this.data["sequence"] as? Int		 ?? 0
         }
         name                = this.data["name"] as? String		 ?? ""
 //        if this.data["count"] is Int32 {
@@ -94,6 +94,7 @@ class KindModel: JSONConvertibleObject {
     init(table: KindTable) {
         id = table.id
         name = table.name
+        sequence = table.sequence
     }
     
     /// override
