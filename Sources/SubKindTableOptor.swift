@@ -56,7 +56,7 @@ class SubKindTable: MySQLStORM {
 class SubKindModel: JSONConvertibleObject {
     
     var id              : Int = 0
-    var sequence        : Int = 0
+    var sequence        : Int = 0   //-1设置成表示改模型不是存在的subkind
     var name            : String = ""
     
     var open            : Bool = false

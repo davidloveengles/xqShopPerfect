@@ -65,6 +65,8 @@ class FoodTable: MySQLStORM {
 class FoodModel: JSONConvertibleObject {
     
     var id              : Int = 0
+    var pid             : Int = 0
+    var ppid            : Int = 0
     var name            : String = ""
     var img             : String = ""
     var largerImg       : String = ""
@@ -84,6 +86,8 @@ class FoodModel: JSONConvertibleObject {
     static let registerName = "FoodModel"
     override func setJSONValues(_ values: [String : Any]) {
         self.id = getJSONValue(named: "id", from: values, defaultValue: 0)
+        self.pid = getJSONValue(named: "pid", from: values, defaultValue: 0)
+        self.ppid = getJSONValue(named: "ppid", from: values, defaultValue: 0)
         self.name = getJSONValue(named: "name", from: values, defaultValue: "")
         self.img = getJSONValue(named: "img", from: values, defaultValue: "")
         self.largerImg = getJSONValue(named: "largerImg", from: values, defaultValue: "")
@@ -94,6 +98,8 @@ class FoodModel: JSONConvertibleObject {
         return [
             JSONDecoding.objectIdentifierKey:FoodModel.registerName,
             "id":id,
+            "pid":pid,
+            "ppid":ppid,
             "name":name,
             "img":img,
             "largerImg":largerImg,

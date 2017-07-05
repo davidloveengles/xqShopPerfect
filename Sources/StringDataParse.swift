@@ -25,29 +25,40 @@ class StringDataParse {
         print("解析到文件KindData.strings")
         
         var kindTables = [KindTable]()
+        
         for dic in kinds {
-            if let id = dic["id"] as? Int,
+            guard let id = dic["id"] as? Int,
                 let sequence = dic["sequence"] as? Int,
-                let name = dic["name"] as? String {
-                
-                let kind = KindTable()
-                kind.id = id
-                kind.sequence = sequence
-                kind.name = name
-                kindTables.append(kind)
+                let name = dic["name"] as? String else{
+                    break
             }
+            
+            let kind = KindTable()
+            kind.id = id
+            kind.sequence = sequence
+            kind.name = name
+            kindTables.append(kind)
+            
             if let subWmProducts = dic["subWmProductTagVos"] as? [[String: Any]] {
+                // 没有subkind，就默认添加一条
+                if subWmProducts.count == 0 {
+                    let subkind = SubKindTable()
+                    subkind.pid = id
+                    subkind.sequence = -1
+                    // 插入subkind数据
+                    SubKindTableOptor.shared.insertAData(subkind)
+                }
                 for subkindDic in subWmProducts {
                     let subkind = SubKindTable()
-                    guard let id = subkindDic["id"] as? Int,
-                        let pid = subkindDic["parentId"] as? Int,
-                        let sequ = subkindDic["sequence"] as? Int,
+                    guard let subid = subkindDic["id"] as? Int,
+                        let subpid = subkindDic["parentId"] as? Int,
+                        let subsequence = subkindDic["sequence"] as? Int,
                         let subname = subkindDic["name"] as? String else {
                         break
                     }
-                    subkind.id = id
-                    subkind.pid = pid
-                    subkind.sequence = sequ
+                    subkind.id = subid
+                    subkind.pid = subpid
+                    subkind.sequence = subsequence
                     subkind.name = subname
                     // 插入subkind数据
                     SubKindTableOptor.shared.insertAData(subkind)
