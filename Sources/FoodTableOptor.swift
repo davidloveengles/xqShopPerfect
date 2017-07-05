@@ -124,6 +124,7 @@ class FoodTableOptor: DBBaseOperator {
         
         do {
             try food.select(whereclause: "pid = ? AND ppid = ?", params: [pid, ppid], orderby: ["id"])
+            try food.select(whereclause: "sequence = ? AND ppid = ?", params: [-100, ppid], orderby: ["id"])
         }catch {
             return nil
         }

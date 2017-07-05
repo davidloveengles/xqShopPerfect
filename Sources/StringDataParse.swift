@@ -44,10 +44,11 @@ class StringDataParse {
                 if subWmProducts.count == 0 {
                     let subkind = SubKindTable()
                     subkind.pid = id
-                    subkind.sequence = -1
+                    subkind.sequence = -100
                     // 插入subkind数据
                     SubKindTableOptor.shared.insertAData(subkind)
                 }
+                
                 for subkindDic in subWmProducts {
                     let subkind = SubKindTable()
                     guard let subid = subkindDic["id"] as? Int,
