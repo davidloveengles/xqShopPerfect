@@ -124,6 +124,26 @@ class FoodTableOptor: DBBaseOperator {
         
         do {
             try food.select(whereclause: "pid = ? AND ppid = ?", params: [pid, ppid], orderby: ["id"])
+        }catch {
+            return nil
+        }
+        
+        
+        var m_foodList = [FoodModel]()
+        for t_food in food.rows() {
+            let m_food = FoodModel(table: t_food)
+            
+            m_foodList.append(m_food)
+        }
+        
+        return m_foodList
+    }
+    
+    func queryNoSubKindFoods(ppid: Int) -> [FoodModel]? {
+        
+        let food = FoodTable()
+        
+        do {
             try food.select(whereclause: "sequence = ? AND ppid = ?", params: [-100, ppid], orderby: ["id"])
         }catch {
             return nil

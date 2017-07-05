@@ -120,6 +120,10 @@ class SubKindTableOptor: DBBaseOperator {
             if let m_foods = FoodTableOptor.shared.queryFoods(pid: m_subkind.id, ppid: pid) {
                 m_subkind.foods = m_foods
             }
+            if let m_foods = FoodTableOptor.shared.queryNoSubKindFoods(ppid: pid) {
+                m_subkind.foods = m_foods
+            }
+            
 
             m_subkindList.append(m_subkind)
         }
