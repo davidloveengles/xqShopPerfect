@@ -142,7 +142,7 @@ extension Handels {
                 msg = "处理支付结果通知成功"
                 print("find order payway \(order.payWay)")
                 // 给微信发送订单消息
-                _ = self.postTemplateMsg(order: order, isMaster: true)
+//                _ = self.postTemplateMsg(order: order, isMaster: true)
                 _ = self.postTemplateMsg(order: order, isMaster: false)
             }
             
@@ -321,9 +321,9 @@ extension Handels {
                     status = .SUCCESS
                     msg = "操作成功"
     
-                    // 给微信发送订单消息(同一个form_id只能发送给一个人。。。)
-                    _ = self.postTemplateMsg(order: order, isMaster: true)
-//                    _ = self.postTemplateMsg(order: order, isMaster: false)
+                    // 给微信发送订单消息(同一个form_id只能发送给一个人。。。) func，只能发送模板消息给本人！！
+//                    _ = self.postTemplateMsg(order: order, isMaster: true)
+                    _ = self.postTemplateMsg(order: order, isMaster: false)
                     
                 }else {
                     msg = "操作失败"
@@ -426,25 +426,25 @@ extension Handels {
                 
                 if order.payWay == 3 {
                     
-                    if isMaster {
-                        // 发送给老板 wo:ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM shao:ozxD-0G8VslMeTlo0UUN06M0mYJw w:ozxD-0Ac7ShWvShSFeaRYVTl5iK8
-                        body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
-                                 "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
-                            "page": "pages/shop/shop",
-                            "form_id": order.form_id,
-                            "data": [
-                                "keyword1": ["value": order.out_trade_no, "color": "#173177"],
-                                "keyword2": ["value": orderInfo, "color": "#173177"],
-                                "keyword3": ["value": perdonName, "color": "#173177"],
-                                "keyword4": ["value": "支付成功", "color": "#173177"],
-                                "keyword5": ["value": order.createTime, "color": "#173177"],
-                                "keyword6": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
-                                "keyword7": ["value": personPhone, "color": "#173177"],
-                                "keyword8": ["value": personHome, "color": "#173177"],
-                                "keyword9": ["value": order.remark, "color": "#173177"]
-                            ]
-                        ]
-                    } else {
+//                    if isMaster {
+//                        // 发送给老板 wo:ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM shao:ozxD-0G8VslMeTlo0UUN06M0mYJw w:ozxD-0Ac7ShWvShSFeaRYVTl5iK8
+//                        body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
+//                                 "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
+//                            "page": "pages/shop/shop",
+//                            "form_id": order.form_id,
+//                            "data": [
+//                                "keyword1": ["value": order.out_trade_no, "color": "#173177"],
+//                                "keyword2": ["value": orderInfo, "color": "#173177"],
+//                                "keyword3": ["value": perdonName, "color": "#173177"],
+//                                "keyword4": ["value": "支付成功", "color": "#173177"],
+//                                "keyword5": ["value": order.createTime, "color": "#173177"],
+//                                "keyword6": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
+//                                "keyword7": ["value": personPhone, "color": "#173177"],
+//                                "keyword8": ["value": personHome, "color": "#173177"],
+//                                "keyword9": ["value": order.remark, "color": "#173177"]
+//                            ]
+//                        ]
+//                    } else {
                         // 发送给用户
                         body  = ["touser": order.openid,                 //接收者openid
                             "template_id": "B9Tnfu8IogA-MhIng3Lg2vBl85J3adE4MB8bC7s-E90",   //模板ID(订单支付成功通知)
@@ -459,29 +459,29 @@ extension Handels {
                                 "keyword6": ["value": "客服电话：18828288888", "color": "#173177"]
                             ]
                         ]
-                    }
+//                    }
 
                 } else {
                     
-                    if isMaster {
-                        // 发送给老板
-                        body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
-                                 "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
-                            "page": "pages/shop/shop",
-                            "form_id": order.form_id,
-                            "data": [
-                                "keyword1": ["value": order.out_trade_no, "color": "#173177"],
-                                "keyword2": ["value": orderInfo, "color": "#173177"],
-                                "keyword3": ["value": perdonName, "color": "#173177"],
-                                "keyword4": ["value": "货到付款", "color": "#173177"],
-                                "keyword5": ["value": order.createTime, "color": "#173177"],
-                                "keyword6": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
-                                "keyword7": ["value": personPhone, "color": "#173177"],
-                                "keyword8": ["value": personHome, "color": "#173177"],
-                                "keyword9": ["value": order.remark, "color": "#173177"]
-                            ]
-                        ]
-                    } else {
+//                    if isMaster {
+//                        // 发送给老板
+//                        body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
+//                                 "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
+//                            "page": "pages/shop/shop",
+//                            "form_id": order.form_id,
+//                            "data": [
+//                                "keyword1": ["value": order.out_trade_no, "color": "#173177"],
+//                                "keyword2": ["value": orderInfo, "color": "#173177"],
+//                                "keyword3": ["value": perdonName, "color": "#173177"],
+//                                "keyword4": ["value": "货到付款", "color": "#173177"],
+//                                "keyword5": ["value": order.createTime, "color": "#173177"],
+//                                "keyword6": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
+//                                "keyword7": ["value": personPhone, "color": "#173177"],
+//                                "keyword8": ["value": personHome, "color": "#173177"],
+//                                "keyword9": ["value": order.remark, "color": "#173177"]
+//                            ]
+//                        ]
+//                    } else {
                         // 发送给用户
                         body  = ["touser": order.openid,                 //接收者openid
                             "template_id": "hGDvSoPKzpxlRQZPBSdBvYyulTSz0pmRjNyb6bClF38",   //模板ID(订单提交成功通知)
@@ -496,7 +496,7 @@ extension Handels {
                                 "keyword6": ["value": "感谢你的使用", "color": "#173177"]
                             ]
                         ]
-                    }
+//                    }
                     
                 }
                 
