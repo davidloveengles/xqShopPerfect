@@ -427,8 +427,8 @@ extension Handels {
                 if order.payWay == 3 {
                     
                     if isMaster {
-                        // 发送给老板
-                        body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
+                        // 发送给老板 wo:ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM shao:ozxD-0G8VslMeTlo0UUN06M0mYJw
+                        body  = ["touser": "ozxD-0G8VslMeTlo0UUN06M0mYJw",
                                  "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
                             "page": "pages/shop/shop",
                             "form_id": order.form_id,
@@ -465,7 +465,7 @@ extension Handels {
                     
                     if isMaster {
                         // 发送给老板
-                        body  = ["touser": "ozxD-0OHB7p9Uvv-Xhcxf-zwjqnM",
+                        body  = ["touser": "ozxD-0G8VslMeTlo0UUN06M0mYJw",
                                  "template_id": "M1AmRRh4blf5aHiyq8vXusayQiTwhRJm5DslO0vs1_0",   //模板ID(新订单通知)
                             "page": "pages/shop/shop",
                             "form_id": order.form_id,
