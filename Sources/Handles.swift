@@ -44,6 +44,31 @@ struct Handels {
             
         }
     }
+    
+    static func getShopMsg() -> RequestHandler {
+        
+        return {    request, response in
+            
+            var status: StatusCode = .Faile
+            var msg: String = ""
+            var data: Any? = nil
+            defer {
+                let json = baseResponseJsonData(status: status, msg: msg, data: data)
+                response.appendBody(string: json)
+                response.completed()
+            }
+            
+//            if let kinds = KindTableOptor.shared.queryAllKinds() {
+//                status = .SUCCESS
+//                msg = "操作成功"
+//                data = try? kinds.jsonEncodedString()
+//                
+//            }else {
+//                msg = "操作失败"
+//            }
+            
+        }
+    }
 }
 
 
@@ -142,7 +167,7 @@ extension Handels {
                 msg = "处理支付结果通知成功"
                 print("find order payway \(order.payWay)")
                 // 给微信发送订单消息
-//                _ = self.postTemplateMsg(order: order, isMaster: true)
+                _ = self.postGZHTemplateMsg(order: order, isMaster: true)
                 _ = self.postTemplateMsg(order: order, isMaster: false)
             }
             
@@ -322,7 +347,7 @@ extension Handels {
                     msg = "操作成功"
     
                     // 给微信发送订单消息(同一个form_id只能发送给一个人。。。) func，只能发送模板消息给本人！！
-//                    _ = self.postTemplateMsg(order: order, isMaster: true)
+                    _ = self.postGZHTemplateMsg(order: order, isMaster: true)
                     _ = self.postTemplateMsg(order: order, isMaster: false)
                     
                 }else {
@@ -367,7 +392,7 @@ extension Handels {
 }
 
 
-/// 模板消息操作
+/// 小程序-模板消息操作
 extension Handels {
     
     static func getAccesstoken() -> String? {
@@ -493,7 +518,7 @@ extension Handels {
                                 "keyword3": ["value": "\(Float(order.total_fee) / 100)元", "color": "#173177"],
                                 "keyword4": ["value": personHome, "color": "#173177"],
                                 "keyword5": ["value": order.createTime, "color": "#173177"],
-                                "keyword6": ["value": "感谢你的使用", "color": "#173177"]
+                                "keyword6": ["value": "客服电话：18828288888", "color": "#173177"]
                             ]
                         ]
 //                    }
@@ -515,6 +540,112 @@ extension Handels {
     
 
 }
+
+
+/// 公账号-模板消息操作
+extension Handels {
+    
+    static func getGZHAccesstoken() -> String? {
+        
+        if GlobalData.share.availableGZHAccessToken() == true {
+            print("使用缓存的GZH access_token")
+            return GlobalData.share.accessTokenGZHDic?["access_token"] as? String
+        }
+        
+        let appid = "wxdaf2ab4f82bb0073";
+        let secret = "beb197db5be1ae86d8e281527df3263f";
+        let url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&&appid=\(appid)&secret=\(secret)"
+        let result = Utility.makeRequest(.get, url)
+        
+        // expires_in现在是7200s
+        if let access_token = result["access_token"] as? String, let expires_in = result["expires_in"] as? Int {
+            
+            GlobalData.share.accessTokenGZHDic = ["access_token": access_token,
+                                               "expires_in": expires_in,
+                                               "saveDate": Date().timeIntervalSince1970]
+            print("获取access_token成功")
+            return access_token
+        }
+        print("获取access_token失败")
+        return nil
+    }
+    
+    /// 发送模板消息给邵强公众号
+    static func postGZHTemplateMsg(order: OrderTable, isMaster: Bool) -> [String:Any]? {
+        
+        guard let access_token = self.getGZHAccesstoken() else{
+            return nil
+        }
+        
+        if let body = (try? order.body.jsonDecode()) as? [String: Any],
+            let orders = body["goods_detail"] as? [[String: Any]]
+        {
+            
+            var orderInfo = ""
+            for var order in orders {
+                if  let goods_name = order["goods_name"],
+                    let quantity = order["quantity"],
+                    let price = order["price"] as? Int{
+                    orderInfo.append("\(goods_name) x\(quantity) ¥\(Float(price) / 100.0)\n")
+                }
+            }
+            orderInfo = orderInfo.substring(0, length: orderInfo.length - 1)
+            
+            let addressinfo = try? order.addressinfo.jsonDecode() as? [String: Any]
+            let personHome = (addressinfo??["home"] as? String) ?? ""
+            let personPhone = (addressinfo??["phone"] as? String) ?? ""
+            let perdonName = (addressinfo??["name"] as? String) ?? ""
+            
+            
+            let body: [String : Any]
+            
+            if order.payWay == 3 {
+                // 支付成功
+                body  = ["touser": "oTc4bs8lEe2PsGKceO5YQ8KeKk_g",
+                         "template_id": "s1LudmcV7MbUh8jDnKSmxLyxhimtqbrws2BdF0fWy3w",   //模板ID(新订单通知)
+                        "data": [
+                            "first": ["value": "订单号：\(order.out_trade_no) 支付成功\n 下单时间：\(order.createTime)", "color": "#173177"],
+                            "keyword1": ["value": perdonName, "color": "#173177"],
+                            "keyword2": ["value": personPhone, "color": "#173177"],
+                            "keyword3": ["value": personHome, "color": "#173177"],
+                            "keyword4": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
+                            "keyword5": ["value": orderInfo, "color": "#173177"],
+                            "keyword4": ["value": "货到付款", "color": "#173177"],
+                            "remark": ["value": order.remark, "color": "#173177"]
+                        ]
+                ]
+                
+            } else {
+                    // 货到付款
+                    body  = ["touser": "oTc4bs8lEe2PsGKceO5YQ8KeKk_g",
+                             "template_id": "s1LudmcV7MbUh8jDnKSmxLyxhimtqbrws2BdF0fWy3w",   //模板ID(新订单通知)
+                        "data": [
+                            "first": ["value": "订单号：\(order.out_trade_no) 货到付款\n 下单时间：\(order.createTime)", "color": "#173177"],
+                            "keyword1": ["value": perdonName, "color": "#173177"],
+                            "keyword2": ["value": personPhone, "color": "#173177"],
+                            "keyword3": ["value": personHome, "color": "#173177"],
+                            "keyword4": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
+                            "keyword5": ["value": orderInfo, "color": "#173177"],
+                            "keyword4": ["value": "货到付款", "color": "#173177"],
+                            "remark": ["value": order.remark, "color": "#173177"]
+                        ]
+                    ]
+            }
+            
+            
+            let url =  "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=\(access_token)"
+            let result = Utility.makeRequest(.post, url, body: (try? body.jsonEncodedString()) ?? "")
+            
+            print(result)
+            return result
+        }
+        return nil
+    }
+    
+    
+    
+}
+
 
 /// 私有
 extension Handels {

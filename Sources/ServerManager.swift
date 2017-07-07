@@ -83,7 +83,9 @@ class ServerManager {
             // 接收微信后台反馈支付结果
             routes.add(method: .post, uri: "/xq/order/payresult", handler: Handels.payResultHandler())
             // 获取用户数据库订单列表
-            routes.add(method: .get, uri: "/xq/order/all", handler: Handels.getAllOrder())            
+            routes.add(method: .get, uri: "/xq/order/all", handler: Handels.getAllOrder())
+            // 获取营业信息等
+            routes.add(method: .get, uri: "/xq/order/shopmsg", handler: Handels.getAllOrder())
         }
 
     
