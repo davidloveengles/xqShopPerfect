@@ -610,7 +610,6 @@ extension Handels {
                             "keyword3": ["value": personHome, "color": "#173177"],
                             "keyword4": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
                             "keyword5": ["value": orderInfo, "color": "#173177"],
-                            "keyword4": ["value": "货到付款", "color": "#173177"],
                             "remark": ["value": order.remark, "color": "#173177"]
                         ]
                 ]
@@ -626,7 +625,6 @@ extension Handels {
                             "keyword3": ["value": personHome, "color": "#173177"],
                             "keyword4": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
                             "keyword5": ["value": orderInfo, "color": "#173177"],
-                            "keyword4": ["value": "货到付款", "color": "#173177"],
                             "remark": ["value": order.remark, "color": "#173177"]
                         ]
                     ]
