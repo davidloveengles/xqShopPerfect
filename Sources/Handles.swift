@@ -563,10 +563,10 @@ extension Handels {
             GlobalData.share.accessTokenGZHDic = ["access_token": access_token,
                                                "expires_in": expires_in,
                                                "saveDate": Date().timeIntervalSince1970]
-            print("获取access_token成功")
+            print("获取GZH access_token成功")
             return access_token
         }
-        print("获取access_token失败")
+        print("获取GZH access_token失败")
         return nil
     }
     
@@ -601,7 +601,7 @@ extension Handels {
             
             if order.payWay == 3 {
                 // 支付成功
-                body  = ["touser": "oTc4bs8lEe2PsGKceO5YQ8KeKk_g",
+                body  = ["touser": "oTc4bs5Km5rDN2yMH_IIP1BnV5dc",
                          "template_id": "s1LudmcV7MbUh8jDnKSmxLyxhimtqbrws2BdF0fWy3w",   //模板ID(新订单通知)
                         "data": [
                             "first": ["value": "订单号：\(order.out_trade_no) 支付成功\n 下单时间：\(order.createTime)", "color": "#173177"],
@@ -616,7 +616,7 @@ extension Handels {
                 
             } else {
                     // 货到付款
-                    body  = ["touser": "oTc4bs8lEe2PsGKceO5YQ8KeKk_g",
+                    body  = ["touser": "oTc4bs52nBLc-RUXv3p_A0l-HhYA",
                              "template_id": "s1LudmcV7MbUh8jDnKSmxLyxhimtqbrws2BdF0fWy3w",   //模板ID(新订单通知)
                         "data": [
                             "first": ["value": "订单号：\(order.out_trade_no) 货到付款\n 下单时间：\(order.createTime)", "color": "#173177"],
