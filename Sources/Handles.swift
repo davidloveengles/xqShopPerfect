@@ -604,7 +604,7 @@ extension Handels {
                 body  = ["touser": "oTc4bs5Km5rDN2yMH_IIP1BnV5dc",
                          "template_id": "s1LudmcV7MbUh8jDnKSmxLyxhimtqbrws2BdF0fWy3w",   //模板ID(新订单通知)
                         "data": [
-                            "first": ["value": "订单号：\(order.out_trade_no) 支付成功\n下单时间：\(order.createTime)", "color": "#173177"],
+                            "first": ["value": "订单号：\(order.out_trade_no)\n订单状态：支付成功\n下单时间：\(order.createTime)", "color": "#173177"],
                             "keyword1": ["value": perdonName, "color": "#173177"],
                             "keyword2": ["value": personPhone, "color": "#173177"],
                             "keyword3": ["value": personHome, "color": "#173177"],
@@ -616,10 +616,10 @@ extension Handels {
                 
             } else {
                     // 货到付款
-                    body  = ["touser": "oTc4bs5Km5rDN2yMH_IIP1BnV5dc",
+                    body  = ["touser": "oTc4bs52nBLc-RUXv3p_A0l-HhYA",
                              "template_id": "s1LudmcV7MbUh8jDnKSmxLyxhimtqbrws2BdF0fWy3w",   //模板ID(新订单通知)
                         "data": [
-                            "first": ["value": "订单号：\(order.out_trade_no) 货到付款\n下单时间：\(order.createTime)", "color": "#173177"],
+                            "first": ["value": "订单号：\(order.out_trade_no)\n订单状态：货到付款\n下单时间：\(order.createTime)", "color": "#173177"],
                             "keyword1": ["value": perdonName, "color": "#173177"],
                             "keyword2": ["value": personPhone, "color": "#173177"],
                             "keyword3": ["value": personHome, "color": "#173177"],
