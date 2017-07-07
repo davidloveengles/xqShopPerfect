@@ -604,27 +604,27 @@ extension Handels {
                 body  = ["touser": "oTc4bs5Km5rDN2yMH_IIP1BnV5dc",
                          "template_id": "s1LudmcV7MbUh8jDnKSmxLyxhimtqbrws2BdF0fWy3w",   //模板ID(新订单通知)
                         "data": [
-                            "first": ["value": "订单号：\(order.out_trade_no) 支付成功\n 下单时间：\(order.createTime)", "color": "#173177"],
+                            "first": ["value": "订单号：\(order.out_trade_no) 支付成功\n下单时间：\(order.createTime)", "color": "#173177"],
                             "keyword1": ["value": perdonName, "color": "#173177"],
                             "keyword2": ["value": personPhone, "color": "#173177"],
                             "keyword3": ["value": personHome, "color": "#173177"],
                             "keyword4": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
                             "keyword5": ["value": orderInfo, "color": "#173177"],
-                            "remark": ["value": order.remark, "color": "#173177"]
+                            "remark": ["value": "备注：" + order.remark, "color": "#173177"]
                         ]
                 ]
                 
             } else {
                     // 货到付款
-                    body  = ["touser": "oTc4bs52nBLc-RUXv3p_A0l-HhYA",
+                    body  = ["touser": "oTc4bs5Km5rDN2yMH_IIP1BnV5dc",
                              "template_id": "s1LudmcV7MbUh8jDnKSmxLyxhimtqbrws2BdF0fWy3w",   //模板ID(新订单通知)
                         "data": [
-                            "first": ["value": "订单号：\(order.out_trade_no) 货到付款\n 下单时间：\(order.createTime)", "color": "#173177"],
+                            "first": ["value": "订单号：\(order.out_trade_no) 货到付款\n下单时间：\(order.createTime)", "color": "#173177"],
                             "keyword1": ["value": perdonName, "color": "#173177"],
                             "keyword2": ["value": personPhone, "color": "#173177"],
                             "keyword3": ["value": personHome, "color": "#173177"],
                             "keyword4": ["value": "\(Float(order.total_fee) / 100)元", "color": "#991199"],
-                            "keyword5": ["value": orderInfo, "color": "#173177"],
+                            "keyword5": ["value": "\n" + orderInfo, "color": "#173177"],
                             "remark": ["value": order.remark, "color": "#173177"]
                         ]
                     ]
