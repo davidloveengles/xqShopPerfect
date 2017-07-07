@@ -531,7 +531,7 @@ extension Handels {
             let url =  "https://api.weixin.qq.com/cgi-bin/message/wxopen/template/send?access_token=\(access_token)"
             let result = Utility.makeRequest(.post, url, body: (try? body.jsonEncodedString()) ?? "")
             
-            print(result)
+            print("发送小程序模板消息：\(result)")
             return result
             }
             return nil
@@ -634,7 +634,7 @@ extension Handels {
             let url =  "https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=\(access_token)"
             let result = Utility.makeRequest(.post, url, body: (try? body.jsonEncodedString()) ?? "")
             
-            print(result)
+            print("发送公众号模板消息：\(result)")
             return result
         }
         return nil
