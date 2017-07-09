@@ -37,7 +37,6 @@ struct Handels {
                 status = .SUCCESS
                 msg = "操作成功"
                 data = try? kinds.jsonEncodedString()
-                
             }else {
                 msg = "操作失败"
             }
@@ -49,13 +48,21 @@ struct Handels {
         
         return {    request, response in
             
-            var status: StatusCode = .SUCCESS
-            var msg: String = "请求成功"
-            var data = "{\"open\":1,\"tip\":\"营业时间早晨7点到下午10点\",\"phone\":12392392231}"
+            var status: StatusCode = .Faile
+            var msg: String = ""
+            var data: Any? = nil
             defer {
                 let json = baseResponseJsonData(status: status, msg: msg, data: data)
                 response.appendBody(string: json)
                 response.completed()
+            }
+            
+            if let work = WorkTableOptor.shared.queryWorkMsg() {
+                data = try? work.jsonEncodedString()
+                msg = "请求成功"
+                status = .SUCCESS
+            }else {
+                msg = "还没有设置/操作失败"
             }
             
         }
@@ -65,15 +72,32 @@ struct Handels {
         
         return {    request, response in
             
-            var status: StatusCode = .SUCCESS
-            var msg: String = "请求成功"
-            var data = "{\"open\":1,\"tip\":\"营业时间早晨7点到下午10点\",\"phone\":12392392231}"
+            var status: StatusCode = .Faile
+            var msg: String = ""
+            var data: Any? = nil
+            
             defer {
                 let json = baseResponseJsonData(status: status, msg: msg, data: data)
                 response.appendBody(string: json)
                 response.completed()
             }
             
+            let params = request.postParams.first?.0
+            let paramsDic = try? params?.jsonDecode() as? [String:Any]
+            print(params ?? "")
+            guard let open = paramsDic??["open"] as? Int,
+                let tip = paramsDic??["tip"] as? String,
+                let phone = paramsDic??["phone"] as? Int else{
+                    msg = "操作失败"
+                    return
+            }
+            
+            if let _ = try? WorkTableOptor.shared.setWorkMsg(open: open, tip: tip, phone: phone) {
+                status = .SUCCESS
+                msg = "操作成功"
+            }else {
+                msg = "操作失败"
+            }
         }
     }
 }

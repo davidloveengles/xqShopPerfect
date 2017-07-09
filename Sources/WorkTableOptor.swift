@@ -125,6 +125,48 @@ class WorkTableOptor: DBBaseOperator {
         }
     }
     
+    
+    func queryWorkMsg() -> WorkModel? {
+        let work = WorkTable()
+        do {
+            try work.select(whereclause: "", params: [], orderby: [])
+            if work.rows().count > 0 {
+                let t_work = work.rows().first!
+                let m_work = WorkModel(table: t_work)
+                return m_work
+            }
+            return nil
+        }catch {
+            return nil
+        }
+    }
+    
+    func setWorkMsg(open: Int, tip: String, phone: Int) throws {
+        
+        let work = WorkTable()
+        do {
+            try work.select(whereclause: "", params: [], orderby: [])
+            if work.rows().count == 0 {
+                work.open = open
+                work.tip = tip
+                work.phone = phone
+                try work.save()
+            }else {
+                let t_w = work.rows().first!
+                t_w.open = open
+                t_w.tip = tip
+                t_w.phone = phone
+                try t_w.update(data: [("open", open), ("tip", tip), ("phone", phone)], idValue: t_w.id)
+            }
+        }catch {
+            throw(error)
+        }
+    }
    
 }
+
+
+
+
+
 
