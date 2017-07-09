@@ -22,8 +22,6 @@ class WorkTable: MySQLStORM {
     var phone           : String = ""
     var tip             : String = ""
     
-    
-    
     override open func table() -> String { return "t_work" }
     
     override func to(_ this: StORMRow) {
@@ -152,7 +150,7 @@ class WorkTableOptor: DBBaseOperator {
                 t_w.open = open
                 t_w.tip = tip
                 t_w.phone = phone
-                try t_w.update(data: [("open", open), ("tip", tip), ("phone", phone)], idValue: t_w.id)
+                try t_w.update(cols: ["open", "tip", "phone"], params: [open, tip, phone], idName: "id", idValue: t_w.id)
             }
         }catch {
             throw(error)
