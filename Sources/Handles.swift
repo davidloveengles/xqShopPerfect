@@ -44,62 +44,6 @@ struct Handels {
         }
     }
     
-    static func getShopMsg() -> RequestHandler {
-        
-        return {    request, response in
-            
-            var status: StatusCode = .Faile
-            var msg: String = ""
-            var data: Any? = nil
-            defer {
-                let json = baseResponseJsonData(status: status, msg: msg, data: data)
-                response.appendBody(string: json)
-                response.completed()
-            }
-            
-            if let work = WorkTableOptor.shared.queryWorkMsg() {
-                data = try? work.jsonEncodedString()
-                msg = "请求成功"
-                status = .SUCCESS
-            }else {
-                msg = "还没有设置/操作失败"
-            }
-            
-        }
-    }
-    
-    static func setShopMsg() -> RequestHandler {
-        
-        return {    request, response in
-            
-            var status: StatusCode = .Faile
-            var msg: String = ""
-            var data: Any? = nil
-            
-            defer {
-                let json = baseResponseJsonData(status: status, msg: msg, data: data)
-                response.appendBody(string: json)
-                response.completed()
-            }
-            
-            let params = request.postParams.first?.0
-            let paramsDic = try? params?.jsonDecode() as? [String:Any]
-            print(params ?? "")
-            guard let open = paramsDic??["open"] as? Int,
-                let tip = paramsDic??["tip"] as? String,
-                let phone = paramsDic??["phone"] as? String else{
-                    msg = "操作失败"
-                    return
-            }
-            
-            if let _ = try? WorkTableOptor.shared.setWorkMsg(open: open, tip: tip, phone: phone) {
-                status = .SUCCESS
-                msg = "操作成功"
-            }else {
-                msg = "操作失败"
-            }
-        }
-    }
 }
 
 
@@ -474,8 +418,8 @@ extension Handels {
             
             let addressinfo = try? order.addressinfo.jsonDecode() as? [String: Any]
             let personHome = (addressinfo??["home"] as? String) ?? ""
-            let personPhone = (addressinfo??["phone"] as? String) ?? ""
-            let perdonName = (addressinfo??["name"] as? String) ?? ""
+//            let personPhone = (addressinfo??["phone"] as? String) ?? ""
+//            let perdonName = (addressinfo??["name"] as? String) ?? ""
             
                 
             let body: [String : Any]
@@ -675,6 +619,66 @@ extension Handels {
     
 }
 
+/// 营业信息设置
+extension Handels {
+    
+    static func getShopMsg() -> RequestHandler {
+        
+        return {    request, response in
+            
+            var status: StatusCode = .Faile
+            var msg: String = ""
+            var data: Any? = nil
+            defer {
+                let json = baseResponseJsonData(status: status, msg: msg, data: data)
+                response.appendBody(string: json)
+                response.completed()
+            }
+            
+            if let work = WorkTableOptor.shared.queryWorkMsg() {
+                data = try? work.jsonEncodedString()
+                msg = "请求成功"
+                status = .SUCCESS
+            }else {
+                msg = "还没有设置/操作失败"
+            }
+            
+        }
+    }
+    
+    static func setShopMsg() -> RequestHandler {
+        
+        return {    request, response in
+            
+            var status: StatusCode = .Faile
+            var msg: String = ""
+            var data: Any? = nil
+            
+            defer {
+                let json = baseResponseJsonData(status: status, msg: msg, data: data)
+                response.appendBody(string: json)
+                response.completed()
+            }
+            
+            let params = request.postParams.first?.0
+            let paramsDic = try? params?.jsonDecode() as? [String:Any]
+            print(params ?? "")
+            guard let open = paramsDic??["open"] as? Int,
+                let tip = paramsDic??["tip"] as? String,
+                let phone = paramsDic??["phone"] as? String else{
+                    msg = "操作失败"
+                    return
+            }
+            
+            if let _ = try? WorkTableOptor.shared.setWorkMsg(open: open, tip: tip, phone: phone) {
+                status = .SUCCESS
+                msg = "操作成功"
+            }else {
+                msg = "操作失败"
+            }
+        }
+    }
+}
 
 /// 私有
 extension Handels {
