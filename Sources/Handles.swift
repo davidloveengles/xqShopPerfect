@@ -61,7 +61,6 @@ struct Handels {
                 data = try? work.jsonEncodedString()
                 msg = "请求成功"
                 status = .SUCCESS
-                print(data)
             }else {
                 msg = "还没有设置/操作失败"
             }
