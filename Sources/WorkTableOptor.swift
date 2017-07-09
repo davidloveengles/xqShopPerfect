@@ -19,7 +19,7 @@ class WorkTable: MySQLStORM {
     
     var id              : Int = 0
     var open            : Int = 1  // 0 关闭 1 开启
-    var phone           : Int = 0
+    var phone           : String = ""
     var tip             : String = ""
     
     
@@ -37,11 +37,7 @@ class WorkTable: MySQLStORM {
         }else{
             open		= this.data["open"] as? Int		 ?? 1
         }
-        if this.data["phone"] is Int32 {
-            phone = Int(this.data["phone"] as? Int32 ?? 0)
-        }else{
-            phone		= this.data["phone"] as? Int		 ?? 0
-        }
+        phone             = this.data["phone"] as? String		 ?? ""
         tip             = this.data["tip"] as? String		 ?? ""
     }
     
@@ -81,7 +77,7 @@ class WorkModel: JSONConvertibleObject {
     
     var id              : Int = 0
     var open            : Int = 1
-    var phone           : Int = 0
+    var phone           : String = ""
     var tip             : String = ""
     
     override init() {}
@@ -98,7 +94,7 @@ class WorkModel: JSONConvertibleObject {
     override func setJSONValues(_ values: [String : Any]) {
         self.id = getJSONValue(named: "id", from: values, defaultValue: 0)
         self.open = getJSONValue(named: "open", from: values, defaultValue: 1)
-        self.phone = getJSONValue(named: "phone", from: values, defaultValue: 0)
+        self.phone = getJSONValue(named: "phone", from: values, defaultValue: "")
         self.tip = getJSONValue(named: "tip", from: values, defaultValue: "")
     }
     override func getJSONValues() -> [String : Any] {
@@ -107,7 +103,7 @@ class WorkModel: JSONConvertibleObject {
             "id":id,
             "open":open,
             "phone":phone,
-            "open":open,
+            "open":open
         ]
     }
 }
@@ -141,7 +137,7 @@ class WorkTableOptor: DBBaseOperator {
         }
     }
     
-    func setWorkMsg(open: Int, tip: String, phone: Int) throws {
+    func setWorkMsg(open: Int, tip: String, phone: String) throws {
         
         let work = WorkTable()
         do {

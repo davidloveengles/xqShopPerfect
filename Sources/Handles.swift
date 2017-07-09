@@ -87,7 +87,7 @@ struct Handels {
             print(params ?? "")
             guard let open = paramsDic??["open"] as? Int,
                 let tip = paramsDic??["tip"] as? String,
-                let phone = paramsDic??["phone"] as? Int else{
+                let phone = paramsDic??["phone"] as? String else{
                     msg = "操作失败"
                     return
             }
