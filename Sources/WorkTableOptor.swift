@@ -101,7 +101,7 @@ class WorkModel: JSONConvertibleObject {
             "id":id,
             "open":open,
             "phone":phone,
-            "open":open
+            "tip":tip
         ]
     }
 }
@@ -127,10 +127,6 @@ class WorkTableOptor: DBBaseOperator {
             if work.rows().count > 0 {
                 let t_work = work.rows().first!
                 let m_work = WorkModel(table: t_work)
-                print(m_work.id)
-                print(m_work.tip)
-                print(m_work.phone)
-                print(m_work.open)
                 return m_work
             }
             return nil
