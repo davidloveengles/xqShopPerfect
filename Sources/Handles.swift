@@ -58,10 +58,10 @@ struct Handels {
             }
             
             if let work = WorkTableOptor.shared.queryWorkMsg() {
-                print(work)
                 data = try? work.jsonEncodedString()
                 msg = "请求成功"
                 status = .SUCCESS
+                print(data)
             }else {
                 msg = "还没有设置/操作失败"
             }
