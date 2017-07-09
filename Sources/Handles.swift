@@ -60,6 +60,22 @@ struct Handels {
             
         }
     }
+    
+    static func setShopMsg() -> RequestHandler {
+        
+        return {    request, response in
+            
+            var status: StatusCode = .SUCCESS
+            var msg: String = "请求成功"
+            var data = "{\"open\":1,\"tip\":\"营业时间早晨7点到下午10点\",\"phone\":12392392231}"
+            defer {
+                let json = baseResponseJsonData(status: status, msg: msg, data: data)
+                response.appendBody(string: json)
+                response.completed()
+            }
+            
+        }
+    }
 }
 
 
