@@ -37,6 +37,7 @@ struct MySQLConnect {
         _ = FoodTableOptor.shared
         _ = KindTableOptor.shared
         _ = OrderTableOptor.shared
+        _ = WorkTableOptor.shared
         
         
         // 注册可json的模型类
@@ -44,6 +45,7 @@ struct MySQLConnect {
         JSONDecoding.registerJSONDecodable(name: SubKindModel.registerName, creator: { return SubKindModel() })
         JSONDecoding.registerJSONDecodable(name: FoodModel.registerName, creator: { return FoodModel() })
         JSONDecoding.registerJSONDecodable(name: OrderModel.registerName, creator: { return OrderModel() })
+        JSONDecoding.registerJSONDecodable(name: WorkModel.registerName, creator: { return WorkModel() })
     
         
       

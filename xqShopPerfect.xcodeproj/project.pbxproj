@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		23F467821F0FEC2D00944235 /* WorkTableOptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F467811F0FEC2D00944235 /* WorkTableOptor.swift */; };
 		OBJ_1000 /* bn_recp.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_247 /* bn_recp.c */; };
 		OBJ_1001 /* bn_shift.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_248 /* bn_shift.c */; };
 		OBJ_1002 /* bn_sqr.c in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_249 /* bn_sqr.c */; };
@@ -1597,6 +1598,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		23F467811F0FEC2D00944235 /* WorkTableOptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkTableOptor.swift; sourceTree = "<group>"; };
 		OBJ_10 /* GlobalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalData.swift; sourceTree = "<group>"; };
 		OBJ_100 /* trees.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = trees.c; sourceTree = "<group>"; };
 		OBJ_101 /* uncompr.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = uncompr.c; sourceTree = "<group>"; };
@@ -3688,6 +3690,7 @@
 				OBJ_17 /* ServerManager.swift */,
 				OBJ_18 /* StringDataParse.swift */,
 				OBJ_19 /* SubKindTableOptor.swift */,
+				23F467811F0FEC2D00944235 /* WorkTableOptor.swift */,
 			);
 			path = Sources;
 			sourceTree = SOURCE_ROOT;
@@ -4611,6 +4614,7 @@
 				OBJ_1966 /* KindTableOptor.swift in Sources */,
 				OBJ_1967 /* main.swift in Sources */,
 				OBJ_1968 /* makeRequest.swift in Sources */,
+				23F467821F0FEC2D00944235 /* WorkTableOptor.swift in Sources */,
 				OBJ_1969 /* MySQLConnect.swift in Sources */,
 				OBJ_1970 /* OrderTableOptor.swift in Sources */,
 				OBJ_1971 /* ServerManager.swift in Sources */,

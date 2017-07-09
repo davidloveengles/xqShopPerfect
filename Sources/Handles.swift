@@ -49,23 +49,14 @@ struct Handels {
         
         return {    request, response in
             
-            var status: StatusCode = .Faile
-            var msg: String = ""
-            var data: Any? = nil
+            var status: StatusCode = .SUCCESS
+            var msg: String = "请求成功"
+            var data = "{\"open\":1,\"tip\":\"营业时间早晨7点到下午10点\",\"phone\":12392392231}"
             defer {
                 let json = baseResponseJsonData(status: status, msg: msg, data: data)
                 response.appendBody(string: json)
                 response.completed()
             }
-            
-//            if let kinds = KindTableOptor.shared.queryAllKinds() {
-//                status = .SUCCESS
-//                msg = "操作成功"
-//                data = try? kinds.jsonEncodedString()
-//                
-//            }else {
-//                msg = "操作失败"
-//            }
             
         }
     }

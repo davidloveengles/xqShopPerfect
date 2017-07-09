@@ -84,8 +84,10 @@ class ServerManager {
             routes.add(method: .post, uri: "/xq/order/payresult", handler: Handels.payResultHandler())
             // 获取用户数据库订单列表
             routes.add(method: .get, uri: "/xq/order/all", handler: Handels.getAllOrder())
+            // 设置营业信息等
+            routes.add(method: .get, uri: "/xq/shopmsg/set", handler: Handels.getAllOrder())
             // 获取营业信息等
-            routes.add(method: .get, uri: "/xq/order/shopmsg", handler: Handels.getAllOrder())
+            routes.add(method: .get, uri: "/xq/shopmsg/query", handler: Handels.getAllOrder())
         }
 
     

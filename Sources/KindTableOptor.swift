@@ -180,3 +180,4 @@ class KindTableOptor: DBBaseOperator {
         }
     }
 }
+
