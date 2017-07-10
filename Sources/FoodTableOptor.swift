@@ -77,6 +77,8 @@ class FoodModel: JSONConvertibleObject {
     override init() {}
     init(table: FoodTable) {
         id = table.id
+        pid = table.pid
+        ppid = table.ppid
         name = table.name
         img = table.img
         largerImg = table.largerImg
